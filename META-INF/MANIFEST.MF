@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Created-By: Skelebyte Studios
+Sealed: true
+Comment: Major.Minor.Patch (a: alpha, b: beta, e: experimental)
+Version: 0.0.1e
+Build: 1
+

@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Created-By: Skelebyte Studios
+Class-Path: BoneSource.jar
+Sealed: true
+Comment: Major.Minor.Patch (a: alpha, b: beta, e: experimental)
+Version: 0.0.0e
+Build: 1
