@@ -19,7 +19,7 @@ public class Main {
 
         CreateLogDirectory();
 
-
+        
         applicationInstance = app;
 
 
