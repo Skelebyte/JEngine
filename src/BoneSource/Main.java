@@ -16,6 +16,9 @@ public class Main {
         System.out.println("Hi, mum!");
     }
 
+    static int frames;
+    public static float frameRate;
+
     public static void run(Application app) {
         System.out.println("BoneSource is functional...");
 
@@ -24,32 +27,38 @@ public class Main {
 
         applicationInstance = app;
 
-
-        Time.setStartTicks();
         applicationInstance.start();
+        Time.setStartTicks();
 
-        while(Window.window.isActive()) {
 
-            Time.setCurrentTicks(Mathf.round(Time.getCurrentTicks() + 5, 0));
-            Debug.print("current tick: " + Time.getCurrentTicks());
+        while(Window.window.isShowing()) {
+            frames++;
+            Time.setCurrentTicks(System.nanoTime());
 
             applicationInstance.update();
-            Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
+            // Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
+
+
+            Time.setStartTicks(System.nanoTime());
 
 
             Time.setDeltaTime();
-            Debug.print("start tick (before): " + Time.getStartTicks());
-            Time.setStartTicks(Mathf.round(Time.getCurrentTicks() + 5, 0));
-            Debug.print("start tick (after): " + Time.getStartTicks());
 
             float time = Mathf.round(Time.deltaTime(), 2);
-            Debug.print("deltaTime rounded 2dp: " + time);
+
+            float tempfps = (frames / Time.deltaTime() ) / 1000;
+
+            frameRate = Mathf.round(tempfps, 10);
+
+            frames = 0;
 
             Time.waitForMilliseconds(time);
 
 
 
         }
+
+        Debug.print("not while");
 
     }
 

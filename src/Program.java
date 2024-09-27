@@ -14,7 +14,7 @@ public class Program extends Application {
 
     @Override
     public void update() {
-        Window.setWindowName("1 2 3 4");
+        Debug.print("fps: " + Main.frameRate);
 
     }
 }

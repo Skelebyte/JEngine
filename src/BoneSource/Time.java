@@ -9,7 +9,7 @@ public class Time {
     static float currentTicks;
 
     public static void setStartTicks() {
-        startTicks = Mathf.round(System.nanoTime(), 2);
+        startTicks = (float) System.nanoTime() / 1000000000;
     }
 
     public static void setStartTicks(float tick) {
@@ -21,7 +21,7 @@ public class Time {
     }
 
     public static void setCurrentTicks() {
-        currentTicks = Mathf.round(System.nanoTime(), 2);
+        currentTicks = (float) System.nanoTime() / 1000000000;
     }
     public static void setCurrentTicks(float value) {
         currentTicks = Mathf.round(value, 2);
@@ -33,6 +33,10 @@ public class Time {
 
     public static void setDeltaTime() {
         deltaTime = currentTicks - startTicks;
+
+        if(deltaTime < 0) {
+            deltaTime = deltaTime - (deltaTime * 2);
+        }
     }
 
     public static float deltaTime() {
