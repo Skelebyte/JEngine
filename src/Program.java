@@ -8,15 +8,13 @@ public class Program extends Application {
 
     @Override
     public void start() {
-        Window.makeWindow("Hi, mum!", 920, 520);
-
+        Window.makeWindow("Hi, mum!", 256, 256);
 
     }
 
     @Override
     public void update() {
-        Debug.print("Hi, mum!");
-        float a = 2.5f;
-        Debug.print("round(" + a + ") to 0 dp = " + Mathf.round(a, 0));
+        Window.setWindowName("1 2 3 4");
+
     }
 }

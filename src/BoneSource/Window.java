@@ -2,6 +2,7 @@ package BoneSource;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class Window {
     public static JFrame window;
@@ -10,25 +11,37 @@ public class Window {
     private static Vector2 windowDimensions;
 
     public static void makeWindow(String name, int w, int h) {
-        Window.window = new JFrame(name);
 
-        Window.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Window.window.setPreferredSize(new Dimension(w, h));
-        Window.window.setSize(w, h);
+        window = new JFrame(name);
 
-        Window.window.setLocationRelativeTo(null);
-        Window.window.pack();
-        Window.window.setVisible(true);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setPreferredSize(new Dimension(w, h));
+        window.setSize(w, h);
+
+        window.setLocationRelativeTo(null);
+        window.pack();
+        window.setVisible(true);
 
 
         Input.Input = new Input();
 
-        Window.window.addKeyListener(Input.Input);
+        window.addKeyListener(Input.Input);
+
     }
 
     public static void setIcon(String iconPath) {
         Image iconImage = new ImageIcon(iconPath).getImage();
         Window.window.setIconImage(iconImage);
+    }
+
+    public static void setWindowName(String value) {
+
+//        if(Objects.equals(value, "") || Objects.equals(value, " ")) {
+//            window.setName("BoneSource Window");
+//            return;
+//        }
+
+        window.setName(value);
     }
 
     public static Vector2 getWindowDimensions() {

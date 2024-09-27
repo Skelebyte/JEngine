@@ -9,7 +9,7 @@ public class Time {
     static float currentTicks;
 
     public static void setStartTicks() {
-        startTicks = System.nanoTime();
+        startTicks = Mathf.round(System.nanoTime(), 2);
     }
 
     public static void setStartTicks(float tick) {
@@ -21,7 +21,10 @@ public class Time {
     }
 
     public static void setCurrentTicks() {
-        currentTicks = System.nanoTime();
+        currentTicks = Mathf.round(System.nanoTime(), 2);
+    }
+    public static void setCurrentTicks(float value) {
+        currentTicks = Mathf.round(value, 2);
     }
 
     public static float getCurrentTicks() {
@@ -37,7 +40,6 @@ public class Time {
     }
 
     public static void waitForSeconds(float time) {
-        Debug.print("waiting for: " + time + " seconds.");
         try {
             TimeUnit.SECONDS.sleep((long) time);
         } catch (InterruptedException e) {
@@ -45,17 +47,13 @@ public class Time {
         }
     }
     public static void waitForMilliseconds(float time) {
-        Debug.print("waiting for: " + time + " milliseconds.");
         try {
-            Debug.print("sleeping... " + time);
             TimeUnit.MILLISECONDS.sleep((long) time); // try round it
-            Debug.print("slept...");
         } catch (InterruptedException e) {
             Debug.log(LogType.ERROR, e.getMessage() + " : " + e.getCause());
         }
     }
     public static void waitForMinutes(float time) {
-        Debug.print("waiting for: " + time + " minutes.");
         try {
             TimeUnit.MINUTES.sleep((long) time);
         } catch (InterruptedException e) {
