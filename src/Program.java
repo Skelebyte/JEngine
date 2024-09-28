@@ -15,6 +15,6 @@ public class Program extends Application {
     @Override
     public void update() {
         Debug.print("fps: " + Main.frameRate);
-
+        Debug.print(Window.getWindowDimensions());
     }
 }

@@ -9,7 +9,8 @@ public class Time {
     static float currentTicks;
 
     public static void setStartTicks() {
-        startTicks = (float) System.nanoTime() / 1000000000;
+        startTicks = (float) System.currentTimeMillis();
+        Debug.print("startticks: " + startTicks);
     }
 
     public static void setStartTicks(float tick) {
@@ -21,7 +22,8 @@ public class Time {
     }
 
     public static void setCurrentTicks() {
-        currentTicks = (float) System.nanoTime() / 1000000000;
+        currentTicks = (float) System.currentTimeMillis();
+        Debug.print("currentics: " + currentTicks);
     }
     public static void setCurrentTicks(float value) {
         currentTicks = Mathf.round(value, 2);
@@ -32,10 +34,14 @@ public class Time {
     }
 
     public static void setDeltaTime() {
-        deltaTime = currentTicks - startTicks;
+        deltaTime = (currentTicks - startTicks); // / 1000000000;
 
         if(deltaTime < 0) {
-            deltaTime = deltaTime - (deltaTime * 2);
+            deltaTime = (deltaTime - (deltaTime * 2)); // / 1000000000;
+        }
+
+        if (deltaTime < 0.001f) {
+            deltaTime = 0.001f;
         }
     }
 

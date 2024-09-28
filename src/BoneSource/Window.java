@@ -11,7 +11,7 @@ public class Window {
     private static Vector2 windowDimensions;
 
     public static void makeWindow(String name, int w, int h) {
-
+        windowDimensions = new Vector2();
         window = new JFrame(name);
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

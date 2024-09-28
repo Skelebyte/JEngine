@@ -33,24 +33,25 @@ public class Main {
 
         while(Window.window.isShowing()) {
             frames++;
-            Time.setCurrentTicks(System.nanoTime());
+            Time.setCurrentTicks();
 
             applicationInstance.update();
-            // Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
+            Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
 
 
-            Time.setStartTicks(System.nanoTime());
+            Time.setStartTicks();
 
 
             Time.setDeltaTime();
 
-            float time = Mathf.round(Time.deltaTime(), 2);
+            float time = Mathf.round(Time.deltaTime(), 3);
+            Debug.print("delta: " + Time.deltaTime());
+            Debug.print("frames: " + frames);
+            float tempfps = frames / Time.deltaTime() / 1000;
 
-            float tempfps = (frames / Time.deltaTime() ) / 1000;
+            frameRate = Mathf.round(tempfps, 1);
 
-            frameRate = Mathf.round(tempfps, 10);
-
-            frames = 0;
+            // frames = 0;
 
             Time.waitForMilliseconds(time);
 

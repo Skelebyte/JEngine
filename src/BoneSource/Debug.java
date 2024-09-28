@@ -29,6 +29,9 @@ public class Debug {
     public static void print(long message) {
         System.out.println(message);
     }
+    public static void print(Vector2 message) {
+        System.out.println("(" + message.x() + "," + message.y() + ")");
+    }
 
 
 
