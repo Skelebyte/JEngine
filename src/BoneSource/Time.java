@@ -10,7 +10,6 @@ public class Time {
 
     public static void setStartTicks() {
         startTicks = (float) System.currentTimeMillis();
-        Debug.print("startticks: " + startTicks);
     }
 
     public static void setStartTicks(float tick) {
@@ -23,7 +22,6 @@ public class Time {
 
     public static void setCurrentTicks() {
         currentTicks = (float) System.currentTimeMillis();
-        Debug.print("currentics: " + currentTicks);
     }
     public static void setCurrentTicks(float value) {
         currentTicks = Mathf.round(value, 2);
@@ -42,6 +40,18 @@ public class Time {
 
         if (deltaTime < 0.001f) {
             deltaTime = 0.001f;
+        }
+    }
+
+    public static void setDeltaTime(float a, float b) {
+        deltaTime = (b - a); // / 1000000000;
+
+        if(deltaTime < 0) {
+            deltaTime = (deltaTime - (deltaTime * 2)); // / 1000000000;
+        }
+
+        if (deltaTime < 0.01f) {
+            deltaTime = 0.01f;
         }
     }
 

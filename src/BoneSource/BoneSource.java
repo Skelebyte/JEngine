@@ -1,14 +1,12 @@
 package BoneSource;
 
 
-import com.sun.jdi.InconsistentDebugInfoException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Main {
+public class BoneSource {
 
     static Application applicationInstance;
 
@@ -17,7 +15,7 @@ public class Main {
     }
 
     static int frames;
-    public static float frameRate;
+    static float frameRate;
 
     public static void run(Application app) {
         System.out.println("BoneSource is functional...");
@@ -28,32 +26,39 @@ public class Main {
         applicationInstance = app;
 
         applicationInstance.start();
-        Time.setStartTicks();
+        float currentTick = System.currentTimeMillis();
+        float currentFrameTime;
 
+        float totalFrameTime = 0.0f;
 
+        float frameDelay;
+        //TODO: refactor the frame rate stuff to be in Time class
         while(Window.window.isShowing()) {
-            frames++;
-            Time.setCurrentTicks();
+
+            currentFrameTime = System.currentTimeMillis();
 
             applicationInstance.update();
             Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
 
+            Time.setDeltaTime(currentTick, currentFrameTime);
 
-            Time.setStartTicks();
 
+            currentTick = currentFrameTime;
 
-            Time.setDeltaTime();
+            totalFrameTime += Time.deltaTime();
 
-            float time = Mathf.round(Time.deltaTime(), 3);
-            Debug.print("delta: " + Time.deltaTime());
-            Debug.print("frames: " + frames);
-            float tempfps = frames / Time.deltaTime() / 1000;
+            frames++;
 
-            frameRate = Mathf.round(tempfps, 1);
+            if(frames >= 100) {
+                frameRate = Mathf.round(frames / totalFrameTime, 2);
+                frames = 0;
+                totalFrameTime = 0.0f;
 
-            // frames = 0;
+            }
 
-            Time.waitForMilliseconds(time);
+            frameDelay = Mathf.round(frameRate / 1000, 2);
+
+            Time.waitForMilliseconds(frameDelay);
 
 
 
@@ -61,6 +66,10 @@ public class Main {
 
         Debug.print("not while");
 
+    }
+
+    public static float getFrameRate() {
+        return frameRate;
     }
 
     static void CreateLogDirectory() {
