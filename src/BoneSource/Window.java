@@ -5,6 +5,9 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Window {
+
+    public static boolean forceWindowNameChange;
+
     public static JFrame window;
 
     // public void Start();
@@ -34,14 +37,28 @@ public class Window {
         Window.window.setIconImage(iconImage);
     }
 
+    static boolean nameWarningTriggered; // TODO: fix the crashing issue, this is a temp fix.
+
     public static void setWindowName(String value) {
 
-//        if(Objects.equals(value, "") || Objects.equals(value, " ")) {
-//            window.setName("BoneSource Window");
-//            return;
-//        }
+        if(!forceWindowNameChange) {
+            if(!nameWarningTriggered) {
+                Debug.log(LogType.ERROR, "This function will crash the program and/or your computer, if you are using linux. If you wish to continue, please set `forceWindowNameChange` to true.");
+                nameWarningTriggered = true;
+            }
+            return;
+        }
 
-        window.setName(value);
+        if(window.getTitle() == value) {
+            return;
+        }
+
+        if(Objects.equals(value, "") || Objects.equals(value, " ")) {
+            window.setTitle("BoneSource Window");
+            return;
+        }
+
+        window.setTitle(value);
     }
 
     public static Vector2 getWindowDimensions() {

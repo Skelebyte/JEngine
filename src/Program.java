@@ -6,16 +6,13 @@ public class Program extends Application {
         BoneSource.run(new Program());
     }
 
-
     @Override
     public void start() {
-        Window.makeWindow("FPS: " + BoneSource.getFrameRate(), 256, 256);
+        Window.makeWindow("hi mum", 256, 256);
     }
 
     @Override
     public void update() {
-        Window.window.setTitle("FPS: " + BoneSource.getFrameRate());
-
-
+        Window.setWindowName("FPS: " + BoneSource.getFrameRate());
     }
 }

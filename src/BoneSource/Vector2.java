@@ -20,6 +20,8 @@ public class Vector2 {
         return Y;
     }
 
-
+    public String toString() {
+        return "(" + X + "," + Y + ")";
+    }
 
 }

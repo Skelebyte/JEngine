@@ -15,7 +15,7 @@ public class AudioPlayer {
     boolean playing;
 
     public boolean isPlaying() {
-        return clip.isActive();
+        return clip.isRunning();
     }
 
     public AudioPlayer(Asset asset) {
@@ -24,7 +24,9 @@ public class AudioPlayer {
 
             clip = AudioSystem.getClip();
 
-
+            if(clip == null) {
+                Debug.print("clip is null");
+            }
 
             clip.open(audio);
 
@@ -66,6 +68,7 @@ public class AudioPlayer {
     }
 
     public void play() {
+        Debug.print("playing");
         clip.start();
         playing = true;
     }
