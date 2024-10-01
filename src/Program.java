@@ -1,9 +1,9 @@
-import BoneSource.*;
+import JEngine.*;
 
 public class Program extends Application {
 
     public static void main(String[] args) {
-        BoneSource.run(new Program());
+        JEngine.run(new Program());
     }
 
     @Override
