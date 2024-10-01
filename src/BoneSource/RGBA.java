@@ -7,6 +7,13 @@ public class RGBA {
     public int b;
     public float a;
 
+    public RGBA() {
+        r = 0;
+        g = 0;
+        b = 0;
+        a = 1;
+    }
+
     public RGBA(int red, int green, int blue) {
         r = red;
         g = green;
@@ -39,5 +46,13 @@ public class RGBA {
     public RGBA blue() {
         return new RGBA(0, 0, 255);
     }
+
+//    public RGBA lerp(RGBA a, RGBA b, float alpha) {
+//        RGBA newColour = a;
+//
+//        newColour.r = Mathf.l
+//
+//        return newColour;
+//    }
 
 }

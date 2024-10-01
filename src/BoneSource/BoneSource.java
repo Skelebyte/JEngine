@@ -58,6 +58,8 @@ public class BoneSource {
 
             frameDelay = Mathf.round(frameRate / 1000, 2);
 
+            Window.setMinimumWindowDimensions();
+
             Time.waitForMilliseconds(frameDelay);
 
 

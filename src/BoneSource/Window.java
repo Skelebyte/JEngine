@@ -13,6 +13,8 @@ public class Window {
     // public void Start();
     private static Vector2 windowDimensions;
 
+    public static Vector2 minimumWindowDimensions = new Vector2();
+
     public static void makeWindow(String name, int w, int h) {
         windowDimensions = new Vector2();
         window = new JFrame(name);
@@ -89,8 +91,9 @@ public class Window {
         return windowDimensions;
     }
 
-    public static void setWindowDimensions(Vector2 windowDimensions) {
-        Window.windowDimensions = windowDimensions;
+    public static void setWindowDimensions(Vector2 dimensions) {
+        windowDimensions = dimensions;
+        window.setSize(windowDimensions.x(), windowDimensions.y());
     }
 
     public static void setBackgroundColor(Color color) {
@@ -101,6 +104,16 @@ public class Window {
         Color newColor = new Color(color.r, color.g, color .b);
 
         window.getContentPane().setBackground(newColor);
+    }
+
+    public static void setMinimumWindowDimensions() {
+        if(window.getHeight() < minimumWindowDimensions.Y) {
+            setWindowDimensions(new Vector2(windowDimensions.x(), minimumWindowDimensions.y()));
+        }
+
+        if(window.getWidth() < minimumWindowDimensions.X) {
+            setWindowDimensions(new Vector2(minimumWindowDimensions.x(), windowDimensions.y()));
+        }
     }
 
 }

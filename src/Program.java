@@ -8,11 +8,16 @@ public class Program extends Application {
 
     @Override
     public void start() {
-        Window.makeWindow("hi mum", 256, 256, false);
-        Window.setBackgroundColor(new RGBA(24, 29, 85));
+        Window.makeWindow("hi mum", 256, 256);
+        Window.setBackgroundColor(new RGBA(25, 50, 75));
     }
+
+    float start = 1;
+    float end = 5;
 
     @Override
     public void update() {
+        start = Mathf.lerp(start, end, 2 * Time.deltaTime());
+        Debug.print(start);
     }
 }

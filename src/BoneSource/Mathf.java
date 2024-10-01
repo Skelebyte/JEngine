@@ -57,4 +57,8 @@ public class Mathf {
         return floor(a * pow(10, b) + 0.5f) / pow(10, b);
     }
 
+    public static float lerp(float a, float b, float alpha) {
+        return a + (b - a) * alpha;
+    }
+
 }
