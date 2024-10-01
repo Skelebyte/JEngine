@@ -1,4 +1,4 @@
-package BoneSource;
+package JEngine;
 
 public class Asset {
     public String assetPath;

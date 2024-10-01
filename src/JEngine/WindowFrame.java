@@ -1,4 +1,4 @@
-package BoneSource;
+package JEngine;
 
 import javax.swing.*;
 import java.awt.*;

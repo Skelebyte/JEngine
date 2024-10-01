@@ -1,4 +1,4 @@
-package BoneSource;
+package JEngine;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,7 +80,7 @@ public class Window {
         }
 
         if(Objects.equals(value, "") || Objects.equals(value, " ")) {
-            window.setTitle("BoneSource Window");
+            window.setTitle("JEngine Window");
             return;
         }
 

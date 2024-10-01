@@ -1,4 +1,4 @@
-package BoneSource;
+package JEngine;
 
 
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class BoneSource {
+public class JEngine {
 
     static Application applicationInstance;
 
@@ -18,7 +18,7 @@ public class BoneSource {
     static float frameRate;
 
     public static void run(Application app) {
-        System.out.println("BoneSource is functional...");
+        System.out.println("JEngine is functional...");
 
         CreateLogDirectory();
 
