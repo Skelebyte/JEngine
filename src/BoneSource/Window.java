@@ -22,6 +22,30 @@ public class Window {
         window.setSize(w, h);
 
         window.setLocationRelativeTo(null);
+
+        window.setResizable(true);
+
+        window.pack();
+        window.setVisible(true);
+
+
+        Input.Input = new Input();
+
+        window.addKeyListener(Input.Input);
+
+    }
+    public static void makeWindow(String name, int w, int h, boolean resizable) {
+        windowDimensions = new Vector2();
+        window = new JFrame(name);
+
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setPreferredSize(new Dimension(w, h));
+        window.setSize(w, h);
+
+        window.setLocationRelativeTo(null);
+
+        window.setResizable(resizable);
+
         window.pack();
         window.setVisible(true);
 
@@ -68,5 +92,16 @@ public class Window {
     public static void setWindowDimensions(Vector2 windowDimensions) {
         Window.windowDimensions = windowDimensions;
     }
+
+    public static void setBackgroundColor(Color color) {
+        window.getContentPane().setBackground(color);
+    }
+    public static void setBackgroundColor(RGBA color) {
+
+        Color newColor = new Color(color.r, color.g, color .b);
+
+        window.getContentPane().setBackground(newColor);
+    }
+
 }
 
