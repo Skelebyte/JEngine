@@ -24,4 +24,8 @@ public class Vector2 {
         return "(" + X + "," + Y + ")";
     }
 
+    public Vector2 zero() {
+        return new Vector2(0, 0);
+    }
+
 }

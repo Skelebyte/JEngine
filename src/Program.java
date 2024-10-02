@@ -8,7 +8,7 @@ public class Program extends Application {
 
     @Override
     public void start() {
-        Window.makeWindow("hi mum", 256, 256);
+        Window.makeWindow("hi mum", 256, 256, true);
         Window.setBackgroundColor(new RGBA(25, 50, 75));
     }
 

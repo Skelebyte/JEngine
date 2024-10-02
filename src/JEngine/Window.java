@@ -15,27 +15,6 @@ public class Window {
 
     public static Vector2 minimumWindowDimensions = new Vector2();
 
-    public static void makeWindow(String name, int w, int h) {
-        windowDimensions = new Vector2();
-        window = new JFrame(name);
-
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setPreferredSize(new Dimension(w, h));
-        window.setSize(w, h);
-
-        window.setLocationRelativeTo(null);
-
-        window.setResizable(true);
-
-        window.pack();
-        window.setVisible(true);
-
-
-        Input.Input = new Input();
-
-        window.addKeyListener(Input.Input);
-
-    }
     public static void makeWindow(String name, int w, int h, boolean resizable) {
         windowDimensions = new Vector2();
         window = new JFrame(name);
@@ -69,13 +48,13 @@ public class Window {
 
         if(!forceWindowNameChange) {
             if(!nameWarningTriggered) {
-                Debug.log(LogType.ERROR, "This function will crash the program and/or your computer, if you are using linux. If you wish to continue, please set `forceWindowNameChange` to true.");
+                Debug.log(LogType.WARNING, "This function will crash the program and/or your computer, if you are using linux. If you wish to continue, please set `forceWindowNameChange` to true.");
                 nameWarningTriggered = true;
             }
             return;
         }
 
-        if(window.getTitle() == value) {
+        if(Objects.equals(window.getTitle(), value)) {
             return;
         }
 
