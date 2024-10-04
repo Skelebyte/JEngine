@@ -43,7 +43,7 @@ public class Window {
     }
 
     static boolean nameWarningTriggered; // TODO: fix the crashing issue, this is a temp fix.
-
+    // TODO: put JFrame.setTitle in try statement
     public static void setWindowName(String value) {
 
         if(!forceWindowNameChange) {
@@ -80,7 +80,7 @@ public class Window {
     }
     public static void setBackgroundColor(RGBA color) {
 
-        Color newColor = new Color(color.r, color.g, color .b);
+        Color newColor = new Color(color.r, color.g, color.b);
 
         window.getContentPane().setBackground(newColor);
     }
