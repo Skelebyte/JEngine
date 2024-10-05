@@ -9,6 +9,7 @@ public class Program extends Application {
     @Override
     public void start() {
         Window.makeWindow("hi mum", 256, 256, true);
+        Window.forceWindowNameChange = true;
         Window.setBackgroundColor(new RGBA(25, 50, 75));
     }
 
@@ -17,7 +18,6 @@ public class Program extends Application {
 
     @Override
     public void update() {
-        start = Mathf.lerp(start, end, 2 * Time.deltaTime());
-        Debug.print(start);
+        Window.setWindowName("hi dad!");
     }
 }

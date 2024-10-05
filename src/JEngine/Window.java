@@ -54,16 +54,20 @@ public class Window {
             return;
         }
 
-        if(Objects.equals(window.getTitle(), value)) {
-            return;
-        }
+        try {
+            if(Objects.equals(window.getTitle(), value)) {
+                return;
+            }
 
-        if(Objects.equals(value, "") || Objects.equals(value, " ")) {
-            window.setTitle("JEngine Window");
-            return;
-        }
+            if(Objects.equals(value, "") || Objects.equals(value, " ")) {
+                window.setTitle("JEngine Window");
+                return;
+            }
 
-        window.setTitle(value);
+            window.setTitle(value);
+        } catch (Exception e) {
+            Debug.print(e.getMessage() + " : " + e.getCause());
+        }
     }
 
     public static Vector2 getWindowDimensions() {
