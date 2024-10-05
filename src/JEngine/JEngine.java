@@ -1,5 +1,6 @@
 package JEngine;
 
+// look at https://www.youtube.com/watch?v=4iPEjFUZNsw, good base for the game loop.
 
 import java.io.IOException;
 import java.nio.file.Files;
