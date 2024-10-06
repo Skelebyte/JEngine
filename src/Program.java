@@ -1,5 +1,7 @@
 import JEngine.*;
 
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+
 public class Program extends Application {
 
     public static void main(String[] args) {
@@ -13,11 +15,9 @@ public class Program extends Application {
         Window.setBackgroundColor(new RGBA(25, 50, 75));
     }
 
-    float start = 1;
-    float end = 5;
-
     @Override
     public void update() {
-        Window.setWindowName("hi dad!");
+        // Window.setWindowName("FPS: " + JEngine.getFps());
+        Debug.print("fps: " + JEngine.getFps());
     }
 }
