@@ -35,15 +35,15 @@ public class RGBA {
 
     }
 
-    public RGBA red() {
+    public static RGBA red() {
         return new RGBA(255, 0, 0);
     }
 
-    public RGBA green() {
+    public static RGBA green() {
         return new RGBA(0, 255, 0);
     }
 
-    public RGBA blue() {
+    public static RGBA blue() {
         return new RGBA(0, 0, 255);
     }
 

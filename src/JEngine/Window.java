@@ -6,8 +6,6 @@ import java.util.Objects;
 
 public class Window {
 
-    public static boolean forceWindowNameChange;
-
     public static JFrame window;
 
     // public void Start();
@@ -19,6 +17,8 @@ public class Window {
         windowDimensions = new Vector2();
         window = new JFrame(name);
 
+
+
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setPreferredSize(new Dimension(w, h));
         window.setSize(w, h);
@@ -26,6 +26,8 @@ public class Window {
         window.setLocationRelativeTo(null);
 
         window.setResizable(resizable);
+
+
 
         window.pack();
         window.setVisible(true);
@@ -42,18 +44,8 @@ public class Window {
         Window.window.setIconImage(iconImage);
     }
 
-    static boolean nameWarningTriggered; // TODO: fix the crashing issue, this is a temp fix.
-    // TODO: put JFrame.setTitle in try statement
+
     public static void setWindowName(String value) {
-
-        if(!forceWindowNameChange) {
-            if(!nameWarningTriggered) {
-                Debug.log(LogType.WARNING, "This function will crash the program and/or your computer, if you are using linux. If you wish to continue, please set `forceWindowNameChange` to true.");
-                nameWarningTriggered = true;
-            }
-            return;
-        }
-
         try {
             if(Objects.equals(window.getTitle(), value)) {
                 return;

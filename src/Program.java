@@ -13,12 +13,15 @@ public class Program extends Application {
     @Override
     public void start() {
         Window.makeWindow("hi mum", 256, 256, true);
-        Window.forceWindowNameChange = true;
+
+        // Window.window.getContentPane().add(new Renderer2D());
+        Window.setBackgroundColor(RGBA.red());
     }
 
     @Override
     public void update() {
         Window.setWindowName("FPS: " + JEngine.getFps());
+        Window.setBackgroundColor(RGBA.red());
 
 
 
