@@ -1,5 +1,7 @@
 package JEngine;
 
+import java.util.Objects;
+
 public class Keybind {
 
     public String name;
@@ -17,7 +19,11 @@ public class Keybind {
     }
 
     public Keybind(String _name, Key _key) {
-        name = _name;
+        if(Objects.equals(_name, "")) {
+            name = "New keybind";
+        } else {
+            name = _name;
+        }
         key = _key;
         pressed = false;
 

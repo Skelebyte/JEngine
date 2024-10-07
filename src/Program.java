@@ -1,4 +1,7 @@
 import JEngine.*;
+import JEngine.Window;
+
+import java.awt.*;
 
 
 public class Program extends Application {
@@ -11,12 +14,13 @@ public class Program extends Application {
     public void start() {
         Window.makeWindow("hi mum", 256, 256, true);
         Window.forceWindowNameChange = true;
-        Window.setBackgroundColor(new RGBA(25, 50, 75));
     }
 
     @Override
     public void update() {
         Window.setWindowName("FPS: " + JEngine.getFps());
-        // Debug.print("fps: " + JEngine.getFps());
+
+
+
     }
 }

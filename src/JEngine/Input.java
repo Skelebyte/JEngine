@@ -47,4 +47,19 @@ public class Input implements KeyListener {
         }
     }
 
+    public static boolean isKeyJustPressed(String keyName) {
+
+        for (Keybind bind : binds) {
+            if(bind.pressed) {
+                bind.pressed = false;
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+        return false;
+    }
+
 }

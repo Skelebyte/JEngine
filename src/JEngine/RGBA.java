@@ -47,12 +47,29 @@ public class RGBA {
         return new RGBA(0, 0, 255);
     }
 
-//    public RGBA lerp(RGBA a, RGBA b, float alpha) {
-//        RGBA newColour = a;
-//
-//        newColour.r = Mathf.l
-//
-//        return newColour;
-//    }
+    public String toString() {
+        return r + ", " + g + ", " + b + ", " + a;
+    }
+
+    public static RGBA lerp(RGBA a, RGBA b, float alpha) {
+        RGBA newColour = a;
+
+        newColour.r = (int) Mathf.lerp(newColour.r, b.r, alpha);
+        newColour.g = (int) Mathf.lerp(newColour.g, b.g, alpha);
+        newColour.b = (int) Mathf.lerp(newColour.b, b.b, alpha);
+        newColour.a = (int) Mathf.lerp(newColour.a, b.a, alpha);
+
+        return newColour;
+    }
+    public static RGBA lerp(RGBA a, RGBA b, double alpha) {
+        RGBA newColour = a;
+
+        newColour.r = (int) Mathf.lerp(newColour.r, b.r, alpha);
+        newColour.g = (int) Mathf.lerp(newColour.g, b.g, alpha);
+        newColour.b = (int) Mathf.lerp(newColour.b, b.b, alpha);
+        newColour.a = (int) Mathf.lerp(newColour.a, b.a, alpha);
+
+        return newColour;
+    }
 
 }

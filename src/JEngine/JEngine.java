@@ -16,12 +16,12 @@ public class JEngine implements Runnable{
     }
 
     static int frames;
-    static int fps = 0;
+    static double fps = 0;
 
 
     static Thread thread;
 
-    final float updateCap = 1f / 60f;
+    static double updateCap = 1.0 / 60.0;
 
 
     public JEngine(Application app) {
@@ -55,25 +55,24 @@ public class JEngine implements Runnable{
 
         applicationInstance.start();
         boolean render = false;
-        float firstTick = 0.0f;
-        float lastTick = (float) System.nanoTime() / 1000000000.0f;
-        float deltaTime = 0.0f;
-        float unprocessedDeltaTime = 0.0f;
+        double firstTick = 0.0;
+        double lastTick = System.nanoTime() / 1000000000.0;
+        double deltaTime = 0.0;
+        double unprocessedDeltaTime = 0.0;
 
-        float frameTime = 0.0f;
+        double frameTime = 0.0;
         int frames = 0;
 
 
         while(Window.window.isShowing()) {
             render = false;
-
-            firstTick = (float) System.nanoTime() / 1000000000.0f;
-
+            firstTick = System.nanoTime() / 1000000000.0;
             deltaTime = firstTick - lastTick;
-
+            Time.setDeltaTime(deltaTime);
             lastTick = firstTick;
+
             unprocessedDeltaTime += deltaTime;
-            frameTime += unprocessedDeltaTime;
+            frameTime += deltaTime;
 
             applicationInstance.update();
 
@@ -82,10 +81,10 @@ public class JEngine implements Runnable{
 
                 render = true;
 
-                if(frameTime >= unprocessedDeltaTime) {
-                    fps = (int)Mathf.round(frames, 0);
+                if(frameTime >= 1.0) {
                     frameTime = 0;
-                    // frames = 0;
+                    fps = frames;
+                    frames = 0;
                 }
 
             }
@@ -97,13 +96,13 @@ public class JEngine implements Runnable{
 
             } else {
                 try {
-                    Thread.sleep(1);
+                    thread.sleep(1);
                 } catch (InterruptedException e) {
                     Debug.log(LogType.ERROR, e.getMessage() + " : " + e.getCause());
                 }
             }
 
-            Dispose();
+            dispose();
 
 
             // Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
@@ -116,12 +115,16 @@ public class JEngine implements Runnable{
 
     }
 
-    void Dispose() {
+    void dispose() {
 
     }
 
-    public static int getFps() {
+    public static double getFps() {
         return fps;
+    }
+
+    public static void setFrameCap(double value) {
+        updateCap = 1.0 / value;
     }
 }
 
