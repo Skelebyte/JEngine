@@ -75,16 +75,17 @@ public class JEngine implements Runnable{
             unprocessedDeltaTime += deltaTime;
             frameTime += unprocessedDeltaTime;
 
+            applicationInstance.update();
+
             while(unprocessedDeltaTime >= updateCap) {
                 unprocessedDeltaTime -= updateCap;
 
                 render = true;
-                //applicationInstance.update();
-                Debug.print(getFps());
-                if(frameTime >= 1.0f) {
-                    fps = frames;
+
+                if(frameTime >= unprocessedDeltaTime) {
+                    fps = (int)Mathf.round(frames, 0);
                     frameTime = 0;
-                    frames = 0;
+                    // frames = 0;
                 }
 
             }
@@ -105,8 +106,8 @@ public class JEngine implements Runnable{
             Dispose();
 
 
-            Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
-            Window.setMinimumWindowDimensions();
+            // Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
+            // Window.setMinimumWindowDimensions();
 
 
         }

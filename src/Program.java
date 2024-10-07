@@ -16,7 +16,7 @@ public class Program extends Application {
 
     @Override
     public void update() {
-        // Window.setWindowName("FPS: " + JEngine.getFps());
-        Debug.print("fps: " + JEngine.getFps());
+        Window.setWindowName("FPS: " + JEngine.getFps());
+        // Debug.print("fps: " + JEngine.getFps());
     }
 }
