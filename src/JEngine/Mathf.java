@@ -53,8 +53,10 @@ public class Mathf {
         return Double.parseDouble(splitValue[0]) + 1;
     }
 
+    // this function breaks when given huge numbers, like 7972437.0 to round.
+    // TODO: find out why it breaks when rounding numbers like ^
     public static double round(double a, int b) {
-        return floor(a * pow(10, b) + 0.5f) / pow(10, b);
+        return floor(a * pow(10, b) + 0.5) / pow(10, b);
     }
 
     public static double lerp(double a, double b, double alpha) {
