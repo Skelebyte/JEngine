@@ -19,7 +19,7 @@ public class Program extends Application {
     public void start() {
         Window.makeWindow("hi mum", 256, 256, true);
 
-        // Window.window.getContentPane().add(new Renderer2D());
+        // Window.window.getContentPane().add(new Renderer3D());
         Window.setBackgroundColor(RGBA.red());
 
         Debug.print("day: " + day + ". Money: " + currentMoney);

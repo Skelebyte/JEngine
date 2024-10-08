@@ -71,4 +71,36 @@ public class Debug {
 
     }
 
+    public static String logException(Exception exception) {
+        String entry = "";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(logTimeAndDateFormat);
+
+        LocalDateTime now = LocalDateTime.now();
+
+        entry += formatter.format(now) + " - ";
+
+        entry += "ERROR (EXCEPTION): ";
+
+        entry += exception.getMessage() + " : " + exception.getCause();
+
+        print(entry);
+
+        try {
+            String[] split = formatter.format(now).split("\\s+");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(logDirectory + (split[0] + logFile), true));
+
+            writer.write(entry);
+            writer.newLine();
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage() + " : " + e.getCause());
+
+        }
+
+        return entry;
+
+    }
+
 }
