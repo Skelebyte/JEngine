@@ -124,17 +124,17 @@ public class Renderer3D extends BufferedImage {
         int index = 0;
 
         for(int i = 0; i < 3; i++) {
-            double[] pixelArray1 = pixels[i];
-            double[] pixelArray2 = pixels[(i + 1) % 3];
+            double[] pixelsX = pixels[i];
+            double[] pixelsY = pixels[(i + 1) % 3];
 
-            if(pixelArray1[2] <= nearClip) {
-                clip[clipIndex++] = pixelArray1;
+            if(pixelsX[2] <= nearClip) {
+                clip[clipIndex++] = pixelsX;
             }
-            if((pixelArray1[2] <= nearClip) ^ (pixelArray2[2] <= nearClip)) {
-                double l = (nearClip - pixelArray1[2]) / (pixelArray2[2] - pixelArray1[2]);
+            if((pixelsX[2] <= nearClip) ^ (pixelsY[2] <= nearClip)) {
+                double l = (nearClip - pixelsX[2]) / (pixelsY[2] - pixelsX[2]);
 
                 for(int j = 0; j < 5; j++) {
-                    temp[index][j] = pixelArray1[j] + l * (pixelArray2[j] - pixelArray1[j]);
+                    temp[index][j] = pixelsX[j] + l * (pixelsY[j] - pixelsX[j]);
                 }
 
                 clip[clipIndex++] = temp[index++];

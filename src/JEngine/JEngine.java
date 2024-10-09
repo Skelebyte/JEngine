@@ -21,7 +21,7 @@ public class JEngine implements Runnable {
 
     static Thread thread;
 
-    static double updateCap = 1.0 / 60.0;
+    static double updateCap = 1.0 / 360.0;
 
 
     public JEngine(Application app) {
@@ -98,7 +98,7 @@ public class JEngine implements Runnable {
                 try {
                     thread.sleep(1);
                 } catch (InterruptedException e) {
-                    Debug.log(LogType.ERROR, e.getMessage() + " : " + e.getCause());
+                    Debug.logException(e);
                 }
             }
 
