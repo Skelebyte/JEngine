@@ -104,19 +104,24 @@ public class JEngine implements Runnable {
 
             }
 
-
+            Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
+            Window.setMinimumWindowDimensions();
 
             if(render) {
                 frames++;
 
                 if(camera != null && camera.active) {
+                    Debug.print(Window.getWindowDimensions());
                     Renderer3D renderer3D = new Renderer3D(Window.getWindowDimensions().x(), Window.getWindowDimensions().y(), camera.fov, camera.nearClipDistance, lerpTexture.getTexture());
+
 
                     /* TODO:
                      *  - get buffer strategy can get Graphics2D from it
                      *  - draw each mesh in the render queue
                      */
-
+                    if(bufferStrategy == null) {
+                        bufferStrategy = camera.strategy;
+                    }
                     Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
                     renderer3D.drawGraphics(graphics, renderQueue);
                 }
@@ -133,8 +138,7 @@ public class JEngine implements Runnable {
             dispose();
 
 
-            // Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
-            // Window.setMinimumWindowDimensions();
+
 
 
         }

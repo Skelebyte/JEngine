@@ -17,8 +17,13 @@ public class Camera3D extends Canvas {
         nearClipDistance = _nearClipDistance;
 
         JEngine.camera = this;
+        Window.window.add(this);
 
-        createBufferStrategy(2);
+        try {
+            createBufferStrategy(2);
+        } catch (Exception e) {
+            Debug.logException(e);
+        }
         strategy = getBufferStrategy();
     }
 
