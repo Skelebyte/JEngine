@@ -27,13 +27,13 @@ public class JEngine implements Runnable {
 
     static Thread thread;
 
-    static double updateCap = 1.0 / 360.0;
+    static double updateCap = 1.0 / 60.0;
 
     static ArrayList<Mesh> renderQueue = new ArrayList<Mesh>();
 
     static Camera3D camera;
 
-    static Texture lerpTexture = new Texture("/Resources/Lerp.png");
+    static Texture lerpTexture = new Texture("src/JEngine/Resources/Lerp.png");
 
     static BufferStrategy bufferStrategy;
 
@@ -94,9 +94,7 @@ public class JEngine implements Runnable {
             while(unprocessedDeltaTime >= updateCap) {
                 unprocessedDeltaTime -= updateCap;
 
-                if(camera != null) {
-                    render = true;
-                }
+                render = true;
 
                 if(frameTime >= 1.0) {
                     frameTime = 0;
@@ -108,18 +106,20 @@ public class JEngine implements Runnable {
 
 
 
-            if(render && camera.active) {
+            if(render) {
                 frames++;
 
-                Renderer3D renderer3D = new Renderer3D(Window.getWindowDimensions().x(), Window.getWindowDimensions().y(), camera.fov, camera.nearClipDistance, lerpTexture.getTexture());
+                if(camera != null && camera.active) {
+                    Renderer3D renderer3D = new Renderer3D(Window.getWindowDimensions().x(), Window.getWindowDimensions().y(), camera.fov, camera.nearClipDistance, lerpTexture.getTexture());
 
-                /* TODO:
-                 *  - get buffer strategy can get Graphics2D from it
-                 *  - draw each mesh in the render queue
-                 */
+                    /* TODO:
+                     *  - get buffer strategy can get Graphics2D from it
+                     *  - draw each mesh in the render queue
+                     */
 
-                Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
-                renderer3D.drawGraphics(graphics, renderQueue);
+                    Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
+                    renderer3D.drawGraphics(graphics, renderQueue);
+                }
 
 
             } else {

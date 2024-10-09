@@ -41,7 +41,7 @@ public class Texture extends Asset {
     }
 
     public static Texture blank() {
-        return new Texture("./Resources/NoTexture.png");
+        return new Texture("src/JEngine/Resources/NoTexture.png");
     }
 
 }

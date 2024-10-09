@@ -1,6 +1,7 @@
 package JEngine.Assets;
 import JEngine.Asset;
 import JEngine.JEngine;
+import JEngine.Debug;
 import JEngine.Transform3D;
 import JEngine.Vector3;
 
@@ -79,6 +80,8 @@ public class Mesh extends Asset {
 
             JEngine.addMeshToRenderQueue(this);
 
+        } catch (Exception e) {
+            Debug.logException(e);
         }
     }
 
