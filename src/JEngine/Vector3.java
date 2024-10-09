@@ -1,29 +1,33 @@
 package JEngine;
 
 public class Vector3 {
-    private final int X;
-    private final int Y;
-    private final int Z;
+    private final double X;
+    private final double Y;
+    private final double Z;
 
     public Vector3() {
         X = 0;
         Y = 0;
         Z = 0;
     }
-    public Vector3(int _x, int _y, int _z) {
+    public Vector3(double _x, double _y, double _z) {
         X = _x;
         Y = _y;
         Z = _z;
     }
 
-    public int x() {
+    public double x() {
         return X;
     }
-    public int y() {
+    public double y() {
         return Y;
     }
-    public int z() {
+    public double z() {
         return Z;
+    }
+
+    public static Vector3 multiply(Vector3 a, double b) {
+        return new Vector3(a.x() * b, a.y() * b, a.z() * b);
     }
 
     public String toString() {

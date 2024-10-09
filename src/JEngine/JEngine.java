@@ -33,7 +33,7 @@ public class JEngine implements Runnable {
 
     static Camera3D camera;
 
-    static Texture lerpTexture = new Texture("src/JEngine/Resources/Lerp.png");
+    static Texture lerpTexture = new Texture("/JEngine/Resources/Lerp.png");
 
     static BufferStrategy bufferStrategy;
 
@@ -90,6 +90,9 @@ public class JEngine implements Runnable {
             if(bufferStrategy == null && camera != null) {
                 bufferStrategy = camera.strategy;
             }
+            if(camera.strategy == null) {
+                Debug.log(LogType.ERROR, "Camera has no BufferStrategy");
+            }
 
             while(unprocessedDeltaTime >= updateCap) {
                 unprocessedDeltaTime -= updateCap;
@@ -111,7 +114,6 @@ public class JEngine implements Runnable {
                 frames++;
 
                 if(camera != null && camera.active) {
-                    Debug.print(Window.getWindowDimensions());
                     Renderer3D renderer3D = new Renderer3D(Window.getWindowDimensions().x(), Window.getWindowDimensions().y(), camera.fov, camera.nearClipDistance, lerpTexture.getTexture());
 
 
@@ -124,6 +126,8 @@ public class JEngine implements Runnable {
                     }
                     Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
                     renderer3D.drawGraphics(graphics, renderQueue);
+                } else {
+                    Debug.log(LogType.WARNING, "No camera created: Can't render scene.");
                 }
 
 

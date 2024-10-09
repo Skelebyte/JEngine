@@ -31,7 +31,7 @@ public class Renderer3D extends BufferedImage {
 
 
     final double[] depthBuffer = new double[getHeight() * getWidth()];
-    final double[][] uv = new double[4][3];
+    final double[][] uv = new double[4][5];
     BufferedImage image;
 
     int i0, i1, i2;
@@ -129,17 +129,20 @@ public class Renderer3D extends BufferedImage {
         int textureHeight = mesh.texture.getTexture().getHeight() - 1;
 
         for(int[] face : mesh.getFaces()) {
-            for(int i = 0; i < 3; i++) {
-                pixels[i][0] = mesh.getVertices()[face[i]][0] * mesh.transform.scale.x();
-                pixels[i][1] = mesh.getVertices()[face[i]][1] * mesh.transform.scale.y();
-                pixels[i][2] = mesh.getVertices()[face[i]][2] * mesh.transform.scale.z();
+            if(face.length >= 6 && face.length <= 8) {
+                for(int i = 0; i < 3; i++) {
+                    Debug.print(String.valueOf(i));
+                    pixels[i][0] = mesh.getVertices()[face[i]][0] * mesh.transform.scale.x();
+                    pixels[i][1] = mesh.getVertices()[face[i]][1] * mesh.transform.scale.y();
+                    pixels[i][2] = mesh.getVertices()[face[i]][2] * mesh.transform.scale.z();
 
-                pixels[i][0] += mesh.transform.position.x();
-                pixels[i][1] += mesh.transform.position.y();
-                pixels[i][2] += mesh.transform.position.z();
+                    pixels[i][0] += mesh.transform.position.x();
+                    pixels[i][1] += mesh.transform.position.y();
+                    pixels[i][2] += mesh.transform.position.z();
 
-                pixels[i][3] = mesh.getTextureVertices()[face[i + 3]][0] * textureWidth;
-                pixels[i][4] = (1.0 - mesh.getTextureVertices()[face[i + 3]][1]) * textureHeight;
+                    pixels[i][3] = mesh.getTextureVertices()[face[i + 3]][0] * textureWidth;
+                    pixels[i][4] = (1.0 - mesh.getTextureVertices()[face[i + 3]][1]) * textureHeight;
+                }
             }
             draw(pixels, mesh.texture.getTexture());
         }

@@ -15,21 +15,24 @@ public class Texture extends Asset {
 
     public Texture(String path) {
         super(path);
+        loadTexture(path);
     }
 
     public void loadTexture(String path) {
-        if(!Objects.equals(assetPath, path)) assetPath = path;
-        try (InputStream stream = getClass().getResourceAsStream(path)) {
-            if (stream != null) {
-                BufferedImage temp = ImageIO.read(stream);
 
-                BufferedImage processedTemp = new BufferedImage(temp.getWidth(), temp.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        InputStream stream = Texture.class.getResourceAsStream(path);
+        if(stream == null) {
+            Debug.log(LogType.ERROR, "Image directory is incorrect: " + path);
+            return;
+        }
 
-                processedTemp.getGraphics().drawImage(temp, 0, 0, null);
-                texture = processedTemp;
-            } else {
-                Debug.log(LogType.ERROR, "Stream is null! Can not load image from '" + path + "'.");
-            }
+        try {
+            BufferedImage temp = ImageIO.read(stream);
+
+            BufferedImage processedTemp = new BufferedImage(temp.getWidth(), temp.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+            processedTemp.getGraphics().drawImage(temp, 0, 0, null);
+            texture = processedTemp;
         } catch (Exception e) {
             Debug.logException(e);
         }
@@ -41,7 +44,7 @@ public class Texture extends Asset {
     }
 
     public static Texture blank() {
-        return new Texture("src/JEngine/Resources/NoTexture.png");
+        return new Texture("/JEngine/Resources/NoTexture.png");
     }
 
 }

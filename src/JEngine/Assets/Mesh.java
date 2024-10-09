@@ -3,8 +3,9 @@ import JEngine.Asset;
 import JEngine.JEngine;
 import JEngine.Debug;
 import JEngine.Transform3D;
-import JEngine.Vector3;
+import JEngine.LogType;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +40,17 @@ public class Mesh extends Asset {
 
     double[][] textureVertices;
     void loadMesh(String resourcePath) {
-        try(Scanner scanner = new Scanner(Objects.requireNonNull(getClass().getResourceAsStream(resourcePath)))) {
+
+        InputStream stream = Mesh.class.getResourceAsStream(resourcePath);
+
+
+        if(stream == null) {
+            Debug.log(LogType.ERROR, "Mesh path is incorrect: " + resourcePath);
+            return;
+        }
+
+        try(Scanner scanner = new Scanner(stream)) {
+
             List<double[]> verticesTemp = new ArrayList<>();
             List<double[]> textureVertexTemp = new ArrayList<>();
             List<int[]> facesTemp = new ArrayList<>();
