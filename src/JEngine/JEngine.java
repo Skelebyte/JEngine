@@ -2,10 +2,16 @@ package JEngine;
 
 // look at https://www.youtube.com/watch?v=4iPEjFUZNsw, good base for the game loop.
 
+import JEngine.Assets.*;
+
+import java.awt.*;
+import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.concurrent.CancellationException;
 
 public class JEngine implements Runnable {
 
@@ -22,6 +28,14 @@ public class JEngine implements Runnable {
     static Thread thread;
 
     static double updateCap = 1.0 / 360.0;
+
+    static ArrayList<Mesh> renderQueue = new ArrayList<Mesh>();
+
+    static Camera3D camera;
+
+    static Texture lerpTexture = new Texture("/Resources/Lerp.png");
+
+    static BufferStrategy bufferStrategy;
 
 
     public JEngine(Application app) {
@@ -41,9 +55,6 @@ public class JEngine implements Runnable {
             System.out.println(ex.getMessage() + " : " + ex.getCause());
         }
     }
-
-    //  frames range from 3 to 4 atm, before it was 6 - 8.
-    // TODO: fix it
     @Override
     public void run() {
         System.out.println("JEngine is functional...");
@@ -76,10 +87,16 @@ public class JEngine implements Runnable {
 
             applicationInstance.update();
 
+            if(bufferStrategy == null && camera != null) {
+                bufferStrategy = camera.strategy;
+            }
+
             while(unprocessedDeltaTime >= updateCap) {
                 unprocessedDeltaTime -= updateCap;
 
-                render = true;
+                if(camera != null) {
+                    render = true;
+                }
 
                 if(frameTime >= 1.0) {
                     frameTime = 0;
@@ -91,8 +108,19 @@ public class JEngine implements Runnable {
 
 
 
-            if(render) {
+            if(render && camera.active) {
                 frames++;
+
+                Renderer3D renderer3D = new Renderer3D(Window.getWindowDimensions().x(), Window.getWindowDimensions().y(), camera.fov, camera.nearClipDistance, lerpTexture.getTexture());
+
+                /* TODO:
+                 *  - get buffer strategy can get Graphics2D from it
+                 *  - draw each mesh in the render queue
+                 */
+
+                Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
+                renderer3D.drawGraphics(graphics, renderQueue);
+
 
             } else {
                 try {
@@ -126,5 +154,14 @@ public class JEngine implements Runnable {
     public static void setFrameCap(double value) {
         updateCap = 1.0 / value;
     }
+
+    public static void addMeshToRenderQueue(Mesh mesh) {
+        renderQueue.add(mesh);
+    }
+
+    public static void setCamera(Camera3D _camera) {
+        camera = _camera;
+    }
+
 }
 

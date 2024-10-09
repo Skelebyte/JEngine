@@ -1,7 +1,7 @@
 import JEngine.*;
+import JEngine.Assets.Mesh;
+import JEngine.Assets.Texture;
 import JEngine.Window;
-
-import java.awt.*;
 
 
 public class Program extends Application {
@@ -25,19 +25,13 @@ public class Program extends Application {
         Debug.print("day: " + day + ". Money: " + currentMoney);
     }
 
-
+    Mesh monkey = new Mesh("./models/monkey.obj", Texture.blank(), new Transform3D());
 
     @Override
     public void update() {
         Window.setWindowName("FPS: " + JEngine.getFps());
-        Window.setBackgroundColor(RGBA.red());
 
-        if(Input.isKeyJustPressed("space")) {
-            currentMoney *= 1.5;
-            currentMoney = Mathf.round(currentMoney, 0);
-            day++;
-            Debug.print("day: " + day + ". Money: " + currentMoney);
-        }
+        
 
     }
 }

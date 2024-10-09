@@ -48,6 +48,12 @@ public class RGBA {
     public static RGBA blue() {
         return new RGBA(0, 0, 255);
     }
+    public static RGBA black() {
+        return new RGBA(0, 0, 0);
+    }
+    public static RGBA white() {
+        return new RGBA(255, 255, 255);
+    }
 
     public String toString() {
         return r + ", " + g + ", " + b + ", " + a;

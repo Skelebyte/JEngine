@@ -1,9 +1,12 @@
 package JEngine;
 
 
+import JEngine.Assets.Mesh;
+
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Renderer3D extends BufferedImage {
@@ -117,6 +120,30 @@ public class Renderer3D extends BufferedImage {
         }
 
     }
+    double[][] pixels = new double[3][5];
+    public void drawMesh(Mesh mesh) {
+
+        if(!mesh.active) return;
+
+        int textureWidth = mesh.texture.getTexture().getWidth() - 1;
+        int textureHeight = mesh.texture.getTexture().getHeight() - 1;
+
+        for(int[] face : mesh.getFaces()) {
+            for(int i = 0; i < 3; i++) {
+                pixels[i][0] = mesh.getVertices()[face[i]][0] * mesh.transform.scale.x();
+                pixels[i][1] = mesh.getVertices()[face[i]][1] * mesh.transform.scale.y();
+                pixels[i][2] = mesh.getVertices()[face[i]][2] * mesh.transform.scale.z();
+
+                pixels[i][0] += mesh.transform.position.x();
+                pixels[i][1] += mesh.transform.position.y();
+                pixels[i][2] += mesh.transform.position.z();
+
+                pixels[i][3] = mesh.getTextureVertices()[face[i + 3]][0] * textureWidth;
+                pixels[i][4] = (1.0 - mesh.getTextureVertices()[face[i + 3]][1]) * textureHeight;
+            }
+            draw(pixels, mesh.texture.getTexture());
+        }
+    }
 
 
     public void clipNearPlane(double[][] pixels) {
@@ -159,6 +186,16 @@ public class Renderer3D extends BufferedImage {
         i1 = point2;
         i2 = point3;
         frameBufferGraphics.drawImage(lerpImage, triangleTransform, null);
+    }
+
+    public void drawGraphics(Graphics2D graphics2D, ArrayList<Mesh> queue) {
+        clear(RGBA.white());
+        for(Mesh mesh : queue) {
+            if(mesh.active) {
+                drawMesh(mesh);
+            }
+        }
+        graphics2D.drawImage(this, 0, 0, getWidth(), getHeight(), JEngine.camera);
     }
 
 }
