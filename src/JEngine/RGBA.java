@@ -1,5 +1,7 @@
 package JEngine;
 
+import java.awt.*;
+
 public class RGBA {
 
     public int r;
@@ -49,6 +51,10 @@ public class RGBA {
 
     public String toString() {
         return r + ", " + g + ", " + b + ", " + a;
+    }
+
+    public Color toColor() {
+        return new Color(r / 255f, g / 255f, b / 255f, a);
     }
 
     public static RGBA lerp(RGBA a, RGBA b, float alpha) {

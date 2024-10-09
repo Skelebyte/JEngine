@@ -4,13 +4,9 @@ package JEngine;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.*;
+import java.util.Arrays;
 
 public class Renderer3D extends BufferedImage {
-
-
-    public Renderer3D(int width, int height, int imageType) {
-        super(width, height, imageType);
-    }
 
     static final double[] LERP = new double[256];
     static final AffineTransform transform = new AffineTransform();
@@ -66,6 +62,103 @@ public class Renderer3D extends BufferedImage {
 
     };
 
-    
+    BufferedImage lerpImage = new BufferedImage(getColorModel(), interceptor, false, null);
+    final BufferedImage frameBuffer = new BufferedImage(getColorModel(), interceptor, false, null);
+
+    final Graphics2D frameBufferGraphics = frameBuffer.createGraphics();
+    final Graphics2D graphics = createGraphics();
+
+    AffineTransform triangleTransform = new AffineTransform();
+    double[][] sps = new double[4][3];
+    double[][] clip = new double[4][0];
+    double[][] temp = new double[2][5];
+
+    double plane = 0.0;
+    double nearClip = 0.1;
+
+    BufferedImage bufferedImage;
+    int clipIndex;
+
+    public Renderer3D(int width, int height, double fovDeg, double near, BufferedImage texture) {
+        super(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        lerpImage = texture;
+        double fovInRads = Math.toRadians(fovDeg);
+        plane = (width / 2.0) / Math.tan(fovInRads / 2.0);
+
+        nearClip = near;
+    }
+
+    public void clear(RGBA color) {
+        graphics.setBackground(color.toColor());
+
+        graphics.clearRect(0, 0, getWidth(), getHeight());
+
+        Arrays.fill(depthBuffer, Double.MAX_VALUE);
+    }
+
+    public void draw(double[][] pixels, BufferedImage bufferedImage) {
+        image = bufferedImage;
+        clipNearPlane(pixels);
+
+        if(clipIndex == 0) return;
+
+        for(int i = 0; i < clipIndex; i++) {
+            uv[i][0] = 1.0 / clip[i][2];
+            uv[i][1] = uv[i][3] * uv[i][0];
+            uv[i][2] = uv[i][4] * uv[i][0];
+            sps[i][0] = (int) (plane * clip[i][0] * -uv[i][0]) + (double) getWidth() / 2;
+            sps[i][1] = (int) (plane * clip[i][1] * uv[i][0]) + (double) getHeight() / 2;
+        }
+
+        drawTriangle(0, 1, 2);
+        if(clipIndex == 4) {
+            drawTriangle(0, 2, 3);
+        }
+
+    }
+
+
+    public void clipNearPlane(double[][] pixels) {
+        clipIndex = 0;
+        int index = 0;
+
+        for(int i = 0; i < 3; i++) {
+            double[] pixelArray1 = pixels[i];
+            double[] pixelArray2 = pixels[(i + 1) % 3];
+
+            if(pixelArray1[2] <= nearClip) {
+                clip[clipIndex++] = pixelArray1;
+            }
+            if((pixelArray1[2] <= nearClip) ^ (pixelArray2[2] <= nearClip)) {
+                double l = (nearClip - pixelArray1[2]) / (pixelArray2[2] - pixelArray1[2]);
+
+                for(int j = 0; j < 5; j++) {
+                    temp[index][j] = pixelArray1[j] + l * (pixelArray2[j] - pixelArray1[j]);
+                }
+
+                clip[clipIndex++] = temp[index++];
+            }
+        }
+    }
+
+    void drawTriangle(int point1, int point2, int point3) {
+        for(int i = 0; i < 2; i++) {
+            int x = (i == 0 ? getWidth() : getHeight()) - 1;
+            if((sps[point1][i] < 0 && sps[point2][i] < 0 && sps[point3][i] < 0) || (sps[point1][i] < x && sps[point2][i] < x && sps[point3][i] < x)) return;
+        }
+        int c1x = (int) (sps[point1][0] - sps[point3][0]);
+        int c1y = (int) (sps[point1][1] - sps[point3][1]);
+        int c2x = (int) (sps[point2][0] - sps[point3][0]);
+        int c2y = (int) (sps[point2][1] - sps[point3][1]);
+
+        if(c1x * c2y - c1y * c2x > 0) return; // back face culling
+        triangleTransform.setTransform(c1x, c1y, c2x, c2y, (int) sps[point3][0], (int) sps[point3][1]);
+        triangleTransform.concatenate(transform);
+        i0 = point1;
+        i1 = point2;
+        i2 = point3;
+        frameBufferGraphics.drawImage(lerpImage, triangleTransform, null);
+    }
 
 }
