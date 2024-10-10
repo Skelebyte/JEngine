@@ -7,6 +7,7 @@ import JEngine.LogType;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -43,7 +44,7 @@ public class Mesh extends Asset {
     void loadMesh(String resourcePath) {
         InputStream stream;
         try {
-            stream = Mesh.class.getResourceAsStream(resourcePath);
+            stream = Mesh.class.getResourceAsStream(String.valueOf(Paths.get(resourcePath)));
         } catch(NullPointerException e) {
             Debug.logException(getClass(), e);
             return;
