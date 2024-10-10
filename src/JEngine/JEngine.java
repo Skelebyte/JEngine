@@ -135,7 +135,7 @@ public class JEngine implements Runnable {
                 try {
                     thread.sleep(1);
                 } catch (InterruptedException e) {
-                    Debug.logException(e);
+                    Debug.logException(getClass(), e);
                 }
             }
 

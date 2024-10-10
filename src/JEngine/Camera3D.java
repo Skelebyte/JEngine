@@ -23,7 +23,7 @@ public class Camera3D extends Canvas {
             Window.window.createBufferStrategy(2);
             strategy = Window.window.getBufferStrategy();
         } catch (Exception e) {
-            Debug.logException(e);
+            Debug.logException(getClass(), e);
         }
 
     }

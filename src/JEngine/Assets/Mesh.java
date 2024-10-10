@@ -5,6 +5,7 @@ import JEngine.Debug;
 import JEngine.Transform3D;
 import JEngine.LogType;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,13 @@ public class Mesh extends Asset {
 
     double[][] textureVertices;
     void loadMesh(String resourcePath) {
-
-        InputStream stream = Mesh.class.getResourceAsStream(resourcePath);
+        InputStream stream;
+        try {
+            stream = Mesh.class.getResourceAsStream(resourcePath);
+        } catch(NullPointerException e) {
+            Debug.logException(getClass(), e);
+            return;
+        }
 
 
         if(stream == null) {
@@ -92,7 +98,7 @@ public class Mesh extends Asset {
             JEngine.addMeshToRenderQueue(this);
 
         } catch (Exception e) {
-            Debug.logException(e);
+            Debug.logException(getClass(), e);
         }
     }
 

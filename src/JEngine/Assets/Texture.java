@@ -34,7 +34,7 @@ public class Texture extends Asset {
             processedTemp.getGraphics().drawImage(temp, 0, 0, null);
             texture = processedTemp;
         } catch (Exception e) {
-            Debug.logException(e);
+            Debug.logException(getClass(), e);
         }
 
     }

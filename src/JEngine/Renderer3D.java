@@ -25,7 +25,7 @@ public class Renderer3D extends BufferedImage {
 
 
         } catch (NoninvertibleTransformException e) {
-            Debug.logException(e);
+            Debug.logException(Renderer3D.class, e);
         }
     }
 

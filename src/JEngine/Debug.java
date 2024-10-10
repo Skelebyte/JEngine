@@ -71,7 +71,7 @@ public class Debug {
 
     }
 
-    public static String logException(Exception exception) {
+    public static <T> String logException(Class<T> _class, Exception exception) {
         String entry = "";
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(logTimeAndDateFormat);
@@ -82,7 +82,7 @@ public class Debug {
 
         entry += "ERROR (EXCEPTION): ";
 
-        entry += exception.getMessage() + " : " + exception.getCause();
+        entry += exception.getMessage() + " : " + exception.getCause() + ". (" + _class.getName() + ")";
 
         print(entry);
 
