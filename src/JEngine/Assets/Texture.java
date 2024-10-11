@@ -2,6 +2,7 @@ package JEngine.Assets;
 
 import JEngine.Asset;
 import JEngine.Debug;
+import JEngine.Loader;
 import JEngine.LogType;
 
 import javax.imageio.ImageIO;
@@ -20,7 +21,7 @@ public class Texture extends Asset {
 
     public void loadTexture(String path) {
 
-        InputStream stream = ClassLoader.getSystemResourceAsStream(path);
+        InputStream stream = Loader.load(path);
         if(stream == null) {
             Debug.log(LogType.ERROR, "Image directory is incorrect: " + path);
             return;

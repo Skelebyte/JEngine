@@ -32,6 +32,6 @@ public class Program extends Application {
     @Override
     public void update() {
         Window.setWindowName("FPS: " + JEngine.getFps());
-
+        monkey.active = false;
     }
 }

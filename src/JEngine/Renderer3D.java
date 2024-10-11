@@ -145,8 +145,10 @@ public class Renderer3D extends BufferedImage {
                     pixels[i][4] = (1.0 - mesh.getTextureVertices()[face[i + 3]][1]) * textureHeight;
                 }
             }
+            Debug.print("drew mesh to camera?");
             draw(pixels, mesh.texture.getTexture());
         }
+        Debug.print("loop broke");
     }
 
 

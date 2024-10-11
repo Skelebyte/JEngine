@@ -4,6 +4,7 @@ import JEngine.JEngine;
 import JEngine.Debug;
 import JEngine.Transform3D;
 import JEngine.LogType;
+import JEngine.Loader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,10 +45,10 @@ public class Mesh extends Asset {
     double[][] vertices;
 
     double[][] textureVertices;
-    void loadMesh(String resourcePath) {
+    void loadMesh(String path) {
         InputStream stream;
         try {
-            stream = ClassLoader.getSystemResourceAsStream(resourcePath);
+            stream = Loader.load(path);
         } catch(NullPointerException e) {
             Debug.logException(getClass(), e);
             return;
@@ -55,7 +56,7 @@ public class Mesh extends Asset {
 
 
         if(stream == null) {
-            Debug.log(LogType.ERROR, "Mesh path is incorrect: " + resourcePath);
+            Debug.log(LogType.ERROR, "Mesh path is incorrect: " + path);
             return;
         }
 
