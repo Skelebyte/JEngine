@@ -27,7 +27,7 @@ public class JEngine implements Runnable {
 
     static Thread thread;
 
-    static double updateCap = 1.0 / 60.0;
+    static double updateCap = 1.0 / 999.0;
 
     static ArrayList<Mesh> renderQueue = new ArrayList<Mesh>();
 

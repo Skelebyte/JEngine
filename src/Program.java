@@ -23,7 +23,7 @@ public class Program extends Application {
         cube = new Mesh("JEngine/Resources/cube.obj", new Texture("JEngine/Resources/NoTexture.png"));
         cube.transform.position = new Vector3(1, 1, 1);
 
-        cube.active = true;
+        cube.active = false;
 
     }
 
@@ -40,7 +40,7 @@ public class Program extends Application {
     public void update() {
         Window.setWindowName("FPS: " + JEngine.getFps());
 
-        cube.transform.position = Vector3.add(cube.transform.position, Vector3.multiply(Vector3.right(), 2 * Time.deltaTime()));
+        cube.transform.position = Vector3.add(cube.transform.position, Vector3.multiply(Vector3.up(), 999 * Time.deltaTime()));
         Debug.print(cube.transform.position.toString());
 
     }
