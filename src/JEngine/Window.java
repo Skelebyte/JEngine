@@ -27,15 +27,15 @@ public class Window {
 
         window.setResizable(resizable);
 
+        Input.Input = new Input();
 
+        window.addKeyListener(Input.Input);
 
         window.pack();
         window.setVisible(true);
 
 
-        Input.Input = new Input();
 
-        window.addKeyListener(Input.Input);
 
     }
 

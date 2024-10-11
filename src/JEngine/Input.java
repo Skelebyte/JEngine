@@ -11,6 +11,11 @@ public class Input implements KeyListener {
 
     public static Input Input;
 
+    public Input() {
+        binds.add(new Keybind("NULL", Key.KEY_NULL));
+        Debug.print("input init");
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         if (binds.isEmpty()) {
