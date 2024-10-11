@@ -33,7 +33,7 @@ public class JEngine implements Runnable {
 
     static Camera3D camera;
 
-    static Texture lerpTexture = new Texture("/JEngine/Resources/Lerp.png");
+    static Texture lerpTexture = new Texture("JEngine/Resources/Lerp.png");
 
     static BufferStrategy bufferStrategy;
 

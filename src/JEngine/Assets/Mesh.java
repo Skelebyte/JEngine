@@ -18,9 +18,14 @@ public class Mesh extends Asset {
 
     public boolean active = true;
 
+    public Transform3D transform;
+
+    public Texture texture;
+
     public Mesh(String path, Texture _texture) {
         super(path);
         texture = _texture;
+        transform = new Transform3D();
 
         loadMesh(path);
     }
@@ -33,9 +38,7 @@ public class Mesh extends Asset {
 
     }
 
-    public Transform3D transform;
 
-    public Texture texture;
 
     int[][] faces;
     double[][] vertices;
@@ -44,7 +47,7 @@ public class Mesh extends Asset {
     void loadMesh(String resourcePath) {
         InputStream stream;
         try {
-            stream = Mesh.class.getResourceAsStream(String.valueOf(Paths.get(resourcePath)));
+            stream = ClassLoader.getSystemResourceAsStream(resourcePath);
         } catch(NullPointerException e) {
             Debug.logException(getClass(), e);
             return;

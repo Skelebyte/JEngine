@@ -129,9 +129,10 @@ public class Renderer3D extends BufferedImage {
         int textureHeight = mesh.texture.getTexture().getHeight() - 1;
 
         for(int[] face : mesh.getFaces()) {
+            Debug.print("face[] length: " + face.length);
             if(face.length >= 6 && face.length <= 8) {
                 for(int i = 0; i < 3; i++) {
-                    Debug.print(String.valueOf(i));
+
                     pixels[i][0] = mesh.getVertices()[face[i]][0] * mesh.transform.scale.x();
                     pixels[i][1] = mesh.getVertices()[face[i]][1] * mesh.transform.scale.y();
                     pixels[i][2] = mesh.getVertices()[face[i]][2] * mesh.transform.scale.z();

@@ -20,7 +20,7 @@ public class Texture extends Asset {
 
     public void loadTexture(String path) {
 
-        InputStream stream = Texture.class.getResourceAsStream(path);
+        InputStream stream = ClassLoader.getSystemResourceAsStream(path);
         if(stream == null) {
             Debug.log(LogType.ERROR, "Image directory is incorrect: " + path);
             return;
@@ -44,7 +44,7 @@ public class Texture extends Asset {
     }
 
     public static Texture blank() {
-        return new Texture("/JEngine/Resources/NoTexture.png");
+        return new Texture("JEngine/Resources/NoTexture.png");
     }
 
 }

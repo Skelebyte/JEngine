@@ -11,6 +11,7 @@ public class Program extends Application {
     }
 
     Camera3D camera;
+    Texture texture;
     Mesh monkey;
 
     @Override
@@ -19,10 +20,10 @@ public class Program extends Application {
         Window.setBackgroundColor(RGBA.white());
 
         camera = new Camera3D(60, 0.01);
-        monkey = new Mesh("/JEngine/Resources/cube.obj", Texture.blank(), new Transform3D());
 
-        monkey.transform.position = Vector3.multiply(Vector3.forward(), 10);
-        monkey.transform.scale = Vector3.multiply(monkey.transform.scale, 10);
+        monkey = new Mesh("JEngine/Resources/monkey.obj", Texture.blank());
+
+        texture = new Texture("JEngine/Resources/NoTexture.png");
 
     }
 
