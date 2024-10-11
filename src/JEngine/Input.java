@@ -48,7 +48,6 @@ public class Input implements KeyListener {
     public void keyTyped(KeyEvent e) {
         if (binds.isEmpty()) {
             binds.add(new Keybind());
-            return;
         }
     }
 
@@ -57,6 +56,7 @@ public class Input implements KeyListener {
         for (Keybind bind : binds) {
             if(bind.pressed) {
                 bind.pressed = false;
+                Debug.print("hey! " + bind.name + " is being pressed!");
                 return true;
             } else {
                 return false;
