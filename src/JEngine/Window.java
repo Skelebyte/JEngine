@@ -72,7 +72,7 @@ public class Window {
     }
     public static void setBackgroundColor(RGBA color) {
 
-        Color newColor = new Color(color.r, color.g, color.b);
+        Color newColor = new Color((float) color.r, (float) color.g, (float) color.b);
 
         window.getContentPane().setBackground(newColor);
     }
