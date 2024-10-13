@@ -1,19 +1,21 @@
 import JEngine.*;
+import JEngine.Cameras.Camera3D;
 import JEngine.Window;
 
 
 public class Program extends Application {
 
     public static void main(String[] args) {
-        JEngine.run(new Program());
+        JEngine.run(new Program(), RendererType.Renderer2D);
     }
+
+    Camera3D camera;
 
 
     @Override
     public void start() {
-        Window.makeWindow("hi mum", 1920, 1080, true);
-        Window.setBackgroundColor(RGBA.white());
-
+        camera = new Camera3D(60.0f);
+        JEngine.getRenderer().clear(RGBA.blue());
 
     }
 

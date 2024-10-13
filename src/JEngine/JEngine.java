@@ -1,26 +1,25 @@
 package JEngine;
 
-// look at https://www.youtube.com/watch?v=4iPEjFUZNsw, good base for the game loop.
 
 
-import java.awt.*;
-import java.awt.image.BufferStrategy;
+import JEngine.Cameras.Camera3D;
+import JEngine.Renderers.Renderer2D;
+import JEngine.Renderers.Renderer3D;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.concurrent.CancellationException;
 
 public class JEngine implements Runnable {
 
     static Application applicationInstance;
+    static RendererType rendererType;
 
     public static void hiMum() {
         System.out.println("Hi, mum!");
     }
 
-    static int frames;
     static double fps = 0;
 
 
@@ -28,12 +27,16 @@ public class JEngine implements Runnable {
 
     static double updateCap = 1.0 / 999.0;
 
-    public JEngine(Application app) {
+    static JRenderer renderer;
+    public static JCamera camera;
+
+    public JEngine(Application app, RendererType type) {
         applicationInstance = app;
+        rendererType = type;
     }
 
-    public static void run(Application app) {
-        thread = new Thread(new JEngine(app));
+    public static void run(Application app, RendererType type) {
+        thread = new Thread(new JEngine(app, type));
         thread.start();
     }
 
@@ -50,11 +53,24 @@ public class JEngine implements Runnable {
         System.out.println("JEngine is functional...");
 
         CreateLogDirectory();
+        Window.makeWindow("JEngine Window", 1000, 600, true);
 
-
+        if(rendererType == RendererType.Renderer3D) {
+            Debug.print("renderer is 3D");
+            renderer = new Renderer3D(Window.getWindowSize());
+        } else if(rendererType == RendererType.Renderer2D) {
+            Debug.print("renderer is 2D");
+            renderer = new Renderer2D(Window.getWindowSize());
+        } else {
+            Debug.print("renderer is null");
+            renderer = null;
+        }
 
 
         applicationInstance.start();
+
+
+
         boolean render = false;
         double firstTick = 0.0;
         double lastTick = System.nanoTime() / 1000000000.0;
@@ -67,6 +83,9 @@ public class JEngine implements Runnable {
 
 
         while(Window.window.isShowing()) {
+
+            renderer.updatePixelsArray(Window.getWindowSize());
+
             render = false;
             firstTick = System.nanoTime() / 1000000000.0;
             deltaTime = firstTick - lastTick;
@@ -94,9 +113,6 @@ public class JEngine implements Runnable {
                 }
 
             }
-
-            Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
-            Window.setMinimumWindowDimensions();
 
             if(render) {
                 frames++;
@@ -132,6 +148,10 @@ public class JEngine implements Runnable {
 
     public static void setFrameCap(double value) {
         updateCap = 1.0 / value;
+    }
+
+    public static JRenderer getRenderer() {
+        return renderer;
     }
 
 }

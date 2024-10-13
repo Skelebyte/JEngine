@@ -4,36 +4,30 @@ import java.awt.*;
 
 public class RGBA {
 
-    public int r;
-    public int g;
-    public int b;
-    public float a;
+    public double r;
+    public double g;
+    public double b;
+    public double a;
 
     public RGBA() {
-        r = 0;
-        g = 0;
-        b = 0;
-        a = 1;
+        r = 0.0;
+        g = 0.0;
+        b = 0.0;
+        a = 1.0;
     }
 
-    public RGBA(int red, int green, int blue) {
-        r = red;
-        g = green;
-        b = blue;
-        a = 1;
+    public RGBA(double red, double green, double blue) {
+        r = Mathf.clamp(red, 0.0, 1.0);
+        g = Mathf.clamp(green, 0.0, 1.0);
+        b = Mathf.clamp(blue, 0.0, 1.0);
+        a = 1.0;
     }
 
-    public RGBA(int red, int green, int blue, float alpha) {
-        r = red;
-        g = green;
-        b = blue;
-        if(alpha > 1f) {
-            a = 1f;
-        } else if(alpha < 0f) {
-            a = 0f;
-        } else {
-            a = alpha;
-        }
+    public RGBA(double red, double green, double blue, double alpha) {
+        r = Mathf.clamp(red, 0.0, 1.0);
+        g = Mathf.clamp(green, 0.0, 1.0);
+        b = Mathf.clamp(blue, 0.0, 1.0);
+        a = Mathf.clamp(alpha, 0.0, 1.0);
 
     }
 
@@ -60,7 +54,7 @@ public class RGBA {
     }
 
     public Color toColor() {
-        return new Color(r / 255f, g / 255f, b / 255f, a);
+        return new Color((float) r, (float) g, (float) b, (float) a);
     }
 
     public static RGBA lerp(RGBA a, RGBA b, float alpha) {
