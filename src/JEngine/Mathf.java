@@ -1,5 +1,6 @@
 package JEngine;
 
+@Deprecated
 public class Mathf {
     public static double sqrt(double a) {
         if(a <= 0)  {

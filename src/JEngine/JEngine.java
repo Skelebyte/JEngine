@@ -2,7 +2,6 @@ package JEngine;
 
 // look at https://www.youtube.com/watch?v=4iPEjFUZNsw, good base for the game loop.
 
-import JEngine.Assets.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -28,15 +27,6 @@ public class JEngine implements Runnable {
     static Thread thread;
 
     static double updateCap = 1.0 / 999.0;
-
-    static ArrayList<Mesh> renderQueue = new ArrayList<Mesh>();
-
-    static Camera3D camera;
-
-    static Texture lerpTexture = new Texture("JEngine/Resources/Lerp.png");
-
-    static BufferStrategy bufferStrategy;
-    Renderer3D renderer3D;
 
     public JEngine(Application app) {
         applicationInstance = app;
@@ -90,16 +80,11 @@ public class JEngine implements Runnable {
 
             applicationInstance.update();
 
-            if(bufferStrategy == null && camera != null) {
-                bufferStrategy = camera.strategy;
-            }
-            if(camera.strategy == null) {
-                Debug.log(LogType.ERROR, "Camera has no BufferStrategy");
-            }
-            render = true;
+
+
             while(unprocessedDeltaTime >= updateCap) {
                 unprocessedDeltaTime -= updateCap;
-
+                render = true;
 
 
                 if(frameTime >= 1.0) {
@@ -115,26 +100,6 @@ public class JEngine implements Runnable {
 
             if(render) {
                 frames++;
-
-                if(camera != null && camera.active) {
-
-                    if(renderer3D == null) {
-                        renderer3D = new Renderer3D(Window.getWindowDimensions().x(), Window.getWindowDimensions().y(), camera.fov, camera.nearClipDistance, lerpTexture.getTexture());
-                    }
-
-                    if(bufferStrategy == null) {
-                        bufferStrategy = camera.strategy;
-                    }
-                    Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
-                    renderer3D.drawGraphics(graphics, renderQueue);
-
-                    graphics.dispose();
-                    bufferStrategy.show();
-
-
-                } else {
-                    Debug.log(LogType.WARNING, "No camera created: Can't render scene.");
-                }
 
 
             } else {
@@ -167,14 +132,6 @@ public class JEngine implements Runnable {
 
     public static void setFrameCap(double value) {
         updateCap = 1.0 / value;
-    }
-
-    public static void addMeshToRenderQueue(Mesh mesh) {
-        renderQueue.add(mesh);
-    }
-
-    public static void setCamera(Camera3D _camera) {
-        camera = _camera;
     }
 
 }
