@@ -1,8 +1,8 @@
 package JEngine;
 
-import java.awt.*;
+import javax.swing.*;
 
-public class JCamera extends Canvas {
+public class JCamera extends JPanel {
 
     public float fov;
 
@@ -12,6 +12,8 @@ public class JCamera extends Canvas {
         fov = fieldOfView;
 
         JEngine.camera = this;
+
+        setVisible(true);
 
         Window.window.add(this);
         Window.window.pack();

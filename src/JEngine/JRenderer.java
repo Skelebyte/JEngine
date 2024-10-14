@@ -23,30 +23,53 @@ public class JRenderer {
         pixels = new RGBA[to.x() * to.y()];
 
 
+
+
         if(image == null || image.getWidth() != to.x() || image.getHeight() != to.y()) {
             image = new BufferedImage(to.x(), to.y(), BufferedImage.TYPE_INT_ARGB);
         }
 
-        JEngine.camera.screenPixels = new RGBA[to.x() * to.y()];
-        int[] temp = new int[0];
-        for(int i = 0; i < to.x() * to.y(); i++) {
-            temp = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-        }
-        for (int b : temp) {
-            Debug.print(b);
-        }
-        Debug.print("done");
+        graphics = JEngine.camera.getGraphics();
+
+
+        JEngine.camera.paint(graphics);
+
+
+        bufferStrategy.show();
+
+//
+//        JEngine.camera.screenPixels = new RGBA[to.x() * to.y()];
+//        int[] temp = new int[0];
+//        for(int i = 0; i < to.x() * to.y(); i++) {
+//            temp = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+//        }
     }
 
     public void clear(RGBA color) {
         Arrays.fill(pixels, color);
+
+//        for(int i = 0; i < pixels.length; i++) {
+//            image.setRGB();
+//        }
+
     }
 
     public void drawPixel(Vector2 pixelPosition, RGBA color) {
         int index = (pixelPosition.x() + pixelPosition.y() * Window.getWindowSize().x());
 
+        image.setRGB(pixelPosition.x(), pixelPosition.y(), color.toColor().getRGB());
+
         pixels[index] = color;
 
+    }
+
+    public void drawSquare(Vector2 position, int width, int height, RGBA color) {
+        for(int x = 0; x < width; x++) {
+            drawPixel(new Vector2(position.x() + x, position.y()), color);
+        }
+        for(int y = 0; y < width; y++) {
+            drawPixel(new Vector2(position.x(), position.y() - y), color);
+        }
     }
 
     void copyArray(RGBA[] destination) {

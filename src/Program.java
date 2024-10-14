@@ -6,7 +6,7 @@ import JEngine.Window;
 public class Program extends Application {
 
     public static void main(String[] args) {
-        JEngine.run(new Program(), RendererType.Renderer2D);
+        JEngine.run(new Program(), RendererType.Renderer3D);
     }
 
     Camera3D camera;
@@ -15,11 +15,8 @@ public class Program extends Application {
     @Override
     public void start() {
         camera = new Camera3D(60.0f);
-        Window.setBackgroundColor(RGBA.red());
+        // Window.setBackgroundColor(RGBA.red());
         JEngine.getRenderer().clear(RGBA.blue());
-
-        JEngine.getRenderer().updateRendererData(Window.getWindowSize());
-
     }
 
 
@@ -27,7 +24,7 @@ public class Program extends Application {
     public void update() {
         Window.setWindowName("FPS: " + JEngine.getFps());
 
-
+        JEngine.getRenderer().drawSquare(new Vector2(100, 100), 100, 100, RGBA.red());
 
     }
 }

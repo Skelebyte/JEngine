@@ -83,6 +83,7 @@ public class JEngine implements Runnable {
 
         while(Window.window.isShowing()) {
 
+            renderer.updateRendererData(Window.getWindowSize());
 
 
             render = false;

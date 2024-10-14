@@ -8,5 +8,6 @@ public class Camera3D extends JCamera {
 
     public Camera3D(float fieldOfView) {
         super(fieldOfView);
+
     }
 }
