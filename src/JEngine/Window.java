@@ -17,10 +17,10 @@ public class Window {
         windowDimensions = new Vector2();
         window = new JFrame(name);
 
-
+        windowDimensions = new Vector2(w, h);
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setPreferredSize(new Dimension(w, h));
+        window.setMinimumSize(new Dimension(w, h));
         window.setSize(w, h);
 
         window.setLocationRelativeTo(null);
@@ -66,10 +66,7 @@ public class Window {
         return windowDimensions;
     }
 
-    public static void setWindowDimensions(Vector2 dimensions) {
-        windowDimensions = dimensions;
-        window.setSize(windowDimensions.x(), windowDimensions.y());
-    }
+
 
     public static void setBackgroundColor(Color color) {
         window.getContentPane().setBackground(color);
@@ -79,16 +76,6 @@ public class Window {
         Color newColor = new Color(color.r, color.g, color.b);
 
         window.getContentPane().setBackground(newColor);
-    }
-
-    public static void setMinimumWindowDimensions() {
-        if(window.getHeight() < minimumWindowDimensions.Y) {
-            setWindowDimensions(new Vector2(windowDimensions.x(), minimumWindowDimensions.y()));
-        }
-
-        if(window.getWidth() < minimumWindowDimensions.X) {
-            setWindowDimensions(new Vector2(minimumWindowDimensions.x(), windowDimensions.y()));
-        }
     }
 
 }

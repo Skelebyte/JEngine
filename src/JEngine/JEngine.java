@@ -3,6 +3,9 @@ package JEngine;
 // look at https://www.youtube.com/watch?v=4iPEjFUZNsw, good base for the game loop.
 
 
+import JEngine.Renderers.Renderer2D;
+import JEngine.Renderers.Renderer3D;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
@@ -28,12 +31,17 @@ public class JEngine implements Runnable {
 
     static double updateCap = 1.0 / 999.0;
 
+    public static JRenderer renderer;
+    static RendererType rendererType;
+    public static JCamera camera;
+
     public JEngine(Application app) {
         applicationInstance = app;
     }
 
-    public static void run(Application app) {
+    public static void run(Application app, RendererType _rendererType) {
         thread = new Thread(new JEngine(app));
+        rendererType = _rendererType;
         thread.start();
     }
 
@@ -52,9 +60,22 @@ public class JEngine implements Runnable {
         CreateLogDirectory();
 
 
+        Window.makeWindow("hi mum", 1000, 600, true);
 
+
+
+        if(rendererType == RendererType.DefaultRenderer) {
+            renderer = new JRenderer(Window.getWindowDimensions());
+        } else if(rendererType == RendererType.Renderer3D) {
+            renderer = new Renderer3D(Window.getWindowDimensions());
+        } else {
+            renderer = new Renderer2D(Window.getWindowDimensions());
+        }
 
         applicationInstance.start();
+
+
+
         boolean render = false;
         double firstTick = 0.0;
         double lastTick = System.nanoTime() / 1000000000.0;
@@ -67,6 +88,9 @@ public class JEngine implements Runnable {
 
 
         while(Window.window.isShowing()) {
+
+            renderer.updateRenderData();
+
             render = false;
             firstTick = System.nanoTime() / 1000000000.0;
             deltaTime = firstTick - lastTick;
@@ -95,12 +119,10 @@ public class JEngine implements Runnable {
 
             }
 
-            Window.setWindowDimensions(new Vector2(Window.window.getSize().width, Window.window.getSize().height));
-            Window.setMinimumWindowDimensions();
-
             if(render) {
                 frames++;
 
+                renderer.draw();
 
             } else {
                 try {
