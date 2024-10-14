@@ -15,7 +15,10 @@ public class Program extends Application {
     @Override
     public void start() {
         camera = new Camera3D(60.0f);
+        Window.setBackgroundColor(RGBA.red());
         JEngine.getRenderer().clear(RGBA.blue());
+
+        JEngine.getRenderer().updateRendererData(Window.getWindowSize());
 
     }
 
@@ -23,6 +26,7 @@ public class Program extends Application {
     @Override
     public void update() {
         Window.setWindowName("FPS: " + JEngine.getFps());
+
 
 
     }

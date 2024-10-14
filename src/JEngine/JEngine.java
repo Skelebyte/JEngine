@@ -2,7 +2,6 @@ package JEngine;
 
 
 
-import JEngine.Cameras.Camera3D;
 import JEngine.Renderers.Renderer2D;
 import JEngine.Renderers.Renderer3D;
 
@@ -84,7 +83,7 @@ public class JEngine implements Runnable {
 
         while(Window.window.isShowing()) {
 
-            renderer.updatePixelsArray(Window.getWindowSize());
+
 
             render = false;
             firstTick = System.nanoTime() / 1000000000.0;
