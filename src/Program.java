@@ -8,9 +8,6 @@ import java.awt.image.DataBufferInt;
 
 
 public class Program extends Application {
-
-
-
     public static void main(String[] args) {
         JEngine.run(new Program(), RendererType.Renderer3D);
     }
@@ -23,18 +20,13 @@ public class Program extends Application {
 
     @Override
     public void start() {
-
-        Window.setBackgroundColor(RGBA.white());
-
-        camera = new JCamera(Window.getWindowDimensions());
+        camera = new JCamera();
 
     }
 
     @Override
     public void update() {
         Window.setWindowName("FPS: " + JEngine.getFps());
-
-
 
     }
 }

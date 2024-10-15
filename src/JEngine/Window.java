@@ -63,6 +63,7 @@ public class Window {
     }
 
     public static Vector2 getWindowDimensions() {
+        windowDimensions = new Vector2(window.getWidth(), window.getHeight());
         return windowDimensions;
     }
 

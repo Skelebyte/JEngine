@@ -9,7 +9,7 @@ public class JCamera extends Canvas {
 
     int[] pixels;
 
-    public JCamera(Vector2 size) {
+    public JCamera() {
         Random random = new Random();
 
         JEngine.camera = this;
@@ -17,7 +17,7 @@ public class JCamera extends Canvas {
         Window.window.add(this);
         Window.window.pack();
 
-        for(int i = 0; i < size.x() * size.y(); i++) {
+        for(int i = 0; i < Window.getWindowDimensions().x() * Window.getWindowDimensions().y(); i++) {
             JEngine.renderer.rendererPixels[i] = random.nextInt();
         }
     }

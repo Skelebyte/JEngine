@@ -89,7 +89,7 @@ public class JEngine implements Runnable {
 
         while(Window.window.isShowing()) {
 
-            renderer.updateRenderData();
+            renderer.updateRenderData(Window.getWindowDimensions());
 
             render = false;
             firstTick = System.nanoTime() / 1000000000.0;

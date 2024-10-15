@@ -22,7 +22,12 @@ public class JRenderer {
 
     }
 
-    public void updateRenderData() {
+    public void updateRenderData(Vector2 newSize) {
+
+        if(Vector2.compare(size, newSize)) {
+            size = newSize;
+            Debug.print("size doesnt fit,changing");
+        }
 
         if(image == null || image.getWidth() != Window.getWindowDimensions().x() || image.getHeight() != Window.getWindowDimensions().y()) {
             image = new BufferedImage(JEngine.renderer.size.x(), JEngine.renderer.size.y(), BufferedImage.TYPE_INT_RGB);
@@ -34,6 +39,7 @@ public class JRenderer {
             JEngine.camera.createBufferStrategy(3);
             strategy = JEngine.camera.getBufferStrategy();
         }
+
 
         for(int i = 0; i < JEngine.renderer.size.x() * JEngine.renderer.size.y(); i++) {
             JEngine.camera.pixels[i] = JEngine.renderer.rendererPixels[i];

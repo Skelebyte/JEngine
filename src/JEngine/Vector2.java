@@ -24,6 +24,10 @@ public class Vector2 {
         return "(" + X + "," + Y + ")";
     }
 
+    public static boolean compare(Vector2 a, Vector2 b) {
+        return a.x() != b.x() && a.y() != b.y();
+    }
+
     public Vector2 zero() {
         return new Vector2(0, 0);
     }
