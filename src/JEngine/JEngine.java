@@ -3,6 +3,8 @@ package JEngine;
 // look at https://www.youtube.com/watch?v=4iPEjFUZNsw, good base for the game loop.
 
 
+import JEngine.Assets.Texture;
+import JEngine.Objects.Sprite2D;
 import JEngine.Renderers.Renderer2D;
 import JEngine.Renderers.Renderer3D;
 
@@ -33,6 +35,7 @@ public class JEngine implements Runnable {
     public static JCamera camera;
 
     public static ArrayList<JObject> objects = new ArrayList<>();
+    public static ArrayList<Texture> textureRenderQueue = new ArrayList<>();
 
     public JEngine(Application app) {
         applicationInstance = app;
@@ -121,6 +124,12 @@ public class JEngine implements Runnable {
             if(render) {
                 frames++;
 
+                if(rendererType == RendererType.Renderer3D) {
+                    // TODO: render 3D stuff
+                } else if(rendererType == RendererType.Renderer2D) {
+                    render2D();
+                }
+
                 renderer.draw();
 
             } else {
@@ -153,8 +162,23 @@ public class JEngine implements Runnable {
                 if(!jObject.loopExecuted) {
                     jObject.objectThread.start();
                 }
+
+                if(jObject.getClass() == Sprite2D.class) {
+                    Sprite2D sprite2D = (Sprite2D) jObject;
+
+                    textureRenderQueue.add(sprite2D.texture);
+
+                }
+
             }
         }
+    }
+
+    void render2D() {
+
+
+
+        textureRenderQueue.clear();
     }
 
     public static double getFps() {

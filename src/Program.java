@@ -1,4 +1,5 @@
 import JEngine.*;
+import JEngine.Assets.Texture;
 import JEngine.Objects.Sprite2D;
 import JEngine.Window;
 
@@ -22,6 +23,8 @@ public class Program extends Application {
     @Override
     public void start() {
         camera = new JCamera();
+
+        testingSprite.texture = new Texture("JEngine/Resources/NoTexture.png");
 
     }
 
