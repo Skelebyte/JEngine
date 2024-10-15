@@ -6,14 +6,11 @@ package JEngine;
 import JEngine.Renderers.Renderer2D;
 import JEngine.Renderers.Renderer3D;
 
-import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.concurrent.CancellationException;
 
 public class JEngine implements Runnable {
 
@@ -34,6 +31,8 @@ public class JEngine implements Runnable {
     public static JRenderer renderer;
     static RendererType rendererType;
     public static JCamera camera;
+
+    public static ArrayList<JObject> objects = new ArrayList<>();
 
     public JEngine(Application app) {
         applicationInstance = app;
@@ -102,9 +101,9 @@ public class JEngine implements Runnable {
 
 
 
-            applicationInstance.update();
+            applicationInstance.tick();
 
-
+            updateJObjects();
 
             while(unprocessedDeltaTime >= updateCap) {
                 unprocessedDeltaTime -= updateCap;
@@ -146,6 +145,16 @@ public class JEngine implements Runnable {
 
     void dispose() {
 
+    }
+
+    void updateJObjects() {
+        if(!objects.isEmpty()) {
+            for(JObject jObject : objects) {
+                if(!jObject.loopExecuted) {
+                    jObject.objectThread.start();
+                }
+            }
+        }
     }
 
     public static double getFps() {

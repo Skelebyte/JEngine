@@ -1,4 +1,5 @@
 import JEngine.*;
+import JEngine.Objects.Sprite2D;
 import JEngine.Window;
 
 import java.awt.*;
@@ -15,7 +16,7 @@ public class Program extends Application {
 
     public JCamera camera;
 
-
+    public Sprite2D testingSprite = new Sprite2D();
 
 
     @Override
@@ -25,7 +26,7 @@ public class Program extends Application {
     }
 
     @Override
-    public void update() {
+    public void tick() {
         Window.setWindowName("FPS: " + JEngine.getFps());
 
     }
