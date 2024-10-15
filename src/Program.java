@@ -9,7 +9,7 @@ import java.awt.image.DataBufferInt;
 
 public class Program extends Application {
     public static void main(String[] args) {
-        JEngine.run(new Program(), RendererType.Renderer3D);
+        JEngine.run(new Program(), RendererType.Renderer2D);
     }
 
 

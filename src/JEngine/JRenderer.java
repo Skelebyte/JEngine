@@ -26,6 +26,7 @@ public class JRenderer {
 
         if(Vector2.compare(size, newSize)) {
             size = newSize;
+            rendererPixels = new int[size.x() * size.y()];
             Debug.print("size doesnt fit,changing");
         }
 

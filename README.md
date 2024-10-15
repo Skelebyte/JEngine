@@ -1,5 +1,5 @@
 # JEngine
- Open Source Java Game Engine
+Open Source Java Game Engine
 
 ### Looking for documentation?
 You can find it here: [JEngine Documentation](https://skelebyte-studios.gitbook.io/jengine/).
