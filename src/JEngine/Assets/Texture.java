@@ -17,6 +17,8 @@ public class Texture extends Asset {
 
     public Texture(String path) {
         super(path);
+
+        loadTexture(path);
     }
 
     public void loadTexture(String path) {
@@ -28,7 +30,9 @@ public class Texture extends Asset {
                 return;
             }
 
-            BufferedImage image = ImageIO.read(stream);
+            BufferedImage image = ImageIO.read(stream); // BufferedImage.TYPE_INT_RGB
+
+            Debug.print(image.getWidth() + ", " + image.getHeight());
 
             texturePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
