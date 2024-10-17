@@ -10,8 +10,7 @@ public class Window {
 
     // public void Start();
     private static Vector2 windowDimensions;
-
-    public static Vector2 minimumWindowDimensions = new Vector2();
+    
 
     public static void makeWindow(String name, int w, int h, boolean resizable) {
         windowDimensions = new Vector2();
