@@ -30,11 +30,19 @@ public class Texture extends Asset {
                 return;
             }
 
+
             BufferedImage image = ImageIO.read(stream); // BufferedImage.TYPE_INT_RGB
+            BufferedImage temp = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-            Debug.print(image.getWidth() + ", " + image.getHeight());
+            texturePixels = ((DataBufferInt) temp.getRaster().getDataBuffer()).getData();
 
-            texturePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+            for(int x = 0; x < image.getWidth(); x++) {
+                for(int y = 0; y < image.getHeight(); y++) {
+                    for(int i = 0; i < texturePixels.length; i++) {
+                        texturePixels[i] = image.getRGB(x, y);
+                    }
+                }
+            }
 
         } catch (IOException e) {
             Debug.logException(getClass(), e);

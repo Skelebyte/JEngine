@@ -14,11 +14,8 @@ public class Sprite2D extends Sprite {
 
     @Override
     public void tick() {
-        Debug.print("This is my sprite tick");
 
-        for(int i = 0; i < texture.texturePixels.length; i++) {
-            Debug.print(texture.texturePixels[i]);
-        }
+
 
 
     }
