@@ -29,6 +29,7 @@ public class JEngine implements Runnable {
     static Thread thread;
 
     static double updateCap = 1.0 / 999.0;
+    static double timedDeltaTime = 0.0;
 
     public static JRenderer renderer;
     static RendererType rendererType;
@@ -116,6 +117,7 @@ public class JEngine implements Runnable {
                 if(frameTime >= 1.0) {
                     frameTime = 0;
                     fps = frames;
+                    timedDeltaTime = deltaTime;
                     frames = 0;
                 }
 
@@ -185,9 +187,16 @@ public class JEngine implements Runnable {
         return fps;
     }
 
+    public static String getFpsAndDelta() {
+        double roundedDelta = Math.round(timedDeltaTime * 10000);
+        return "FPS: " + getFps() + ", " + roundedDelta / 10000 + "ms";
+    }
+
     public static void setFrameCap(double value) {
         updateCap = 1.0 / value;
     }
+
+    public static void pass() {}
 
 }
 

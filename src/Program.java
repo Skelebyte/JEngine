@@ -26,11 +26,13 @@ public class Program extends Application {
 
         testingSprite.texture = new Texture("JEngine/Resources/NoTexture.png");
 
+        JEngine.renderer.pixelSize = new Vector2(5, 5);
+
     }
 
     @Override
     public void tick() {
-        Window.setWindowName("FPS: " + JEngine.getFps());
+        Window.setWindowName(JEngine.getFpsAndDelta());
 
     }
 }
